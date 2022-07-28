@@ -12,9 +12,7 @@ public class Manager {
     public static StringBuilder securityQuestion;
     public static StringBuilder securityAnswer;
 
-
     static public void start() throws SQLException {
-
 
         while(true) {
 
@@ -209,7 +207,6 @@ public class Manager {
             }
 
         }
-
 
     }
 
