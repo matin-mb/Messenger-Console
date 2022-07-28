@@ -12,6 +12,8 @@ public class Manager {
     public static StringBuilder securityQuestion;
     public static StringBuilder securityAnswer;
 
+    public static int testGit;
+
     static public void start() throws SQLException {
 
 
