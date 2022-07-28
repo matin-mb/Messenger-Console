@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-
 public class Manager {
     static Scanner sc= new Scanner(System.in);
 

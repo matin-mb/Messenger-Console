@@ -1288,7 +1288,7 @@ public class Firstpage {
                     }
                     int num2 = Integer.parseInt(scanner.nextLine());
                     Group group = new Group();
-                    group = Group.groups.get(num2 - 1);
+                    group = mygroups.get(num2 - 1);
                     if (group.admin.equals(personalUser.username)) {
                         boolean repeatGroupPage = true;
                         while (repeatGroupPage) {
@@ -2100,7 +2100,7 @@ public class Firstpage {
                     Post post = new Post();
                     System.out.println("Please write down your post and enter -ENTER-  to finish it...");
                     String text = new String(scanner.nextLine());
-                    post.text = text;
+                    post.text =("-ad-"+ text);
                     post.user = commercialUser;
                     Post.allPosts.add(post);
 
@@ -2342,5 +2342,7 @@ public class Firstpage {
     {
 
     }
+
+
 
 }
