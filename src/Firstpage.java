@@ -2334,13 +2334,13 @@ public class Firstpage {
 
     }
 
-//    public void login(PersonalUser personalUser)
-//    {
-//
-//    }
-//    public void login(CommercialUser commercialUser)
-//    {
-//
-//    }
+    public void login(PersonalUser personalUser)
+    {
+
+    }
+    public void login(CommercialUser commercialUser)
+    {
+
+    }
 
 }

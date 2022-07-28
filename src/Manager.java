@@ -11,7 +11,7 @@ public class Manager {
 
     public static StringBuilder securityQuestion;
     public static StringBuilder securityAnswer;
-// it is working!!!
+
 
     static public void start() throws SQLException {
 
