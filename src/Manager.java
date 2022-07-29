@@ -185,6 +185,15 @@ public class Manager {
                             user = allUser;
                         }
                     }
+                    if(user == null)
+                    {
+                        System.out.println("Username not found!");
+                        continue;
+                    }
+                    if(user.securityQ == null){
+                        System.out.println("security Question was not set");
+                        continue;
+                    }
                     System.out.println(user.securityQ);
                     String answer = sc.nextLine();
                     if (answer.equals(user.securityA)) {

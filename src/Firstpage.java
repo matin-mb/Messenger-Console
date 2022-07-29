@@ -842,6 +842,8 @@ public class Firstpage {
                         System.out.println("0. Back");
                         int thisnumber = Integer.parseInt(scanner.nextLine());
                         if (thisnumber == 0) {
+                            repeatHomePage = true;
+                            continue;
                         }
                         else {
                             for (int j = 0; j < PersonalUser.allPersonalUsers.size(); j++) {
@@ -1286,7 +1288,12 @@ public class Firstpage {
                             System.out.println(String.valueOf(++t) + ". " + Group.groups.get(i).name);
                         }
                     }
+                    System.out.println("0. back");
                     int num2 = Integer.parseInt(scanner.nextLine());
+                    if(num2 == 0){
+                        repeatHomePage = true;
+                        continue;
+                    }
                     Group group = new Group();
                     group = mygroups.get(num2 - 1);
                     if (group.admin.equals(personalUser.username)) {
@@ -1926,6 +1933,60 @@ public class Firstpage {
                     repeatHomePage = true;
 
                 }
+                else if (option == 8) {
+
+                    boolean editProfileContinues = true;
+                    while (editProfileContinues){
+                        printEditProfilePage_Personal();
+                        int choice = Integer.parseInt(scanner.nextLine());
+                        if(choice == 1){
+                            //System.out.println("Enter new username:");
+                            //String newUserName =
+                            boolean letLoop = true;
+                            String id = null;
+                            while (letLoop) {
+                                letLoop = false;
+                                System.out.println("Please enter a new username ...");
+                                id = scanner.nextLine();
+                                while (id.isEmpty()) {
+                                    id = scanner.nextLine();
+                                }
+                                for (int i = 0; i < PersonalUser.allPersonalUsers.size() && !letLoop; i++) {
+                                    if (PersonalUser.allPersonalUsers.get(i).username.equals(id)) {
+                                        System.out.println("existed username");
+                                        letLoop = true;
+
+                                    }
+                                }
+                                for (int i = 0; i < CommercialUser.allCommercialUsers.size() && !letLoop; i++) {
+                                    if (CommercialUser.allCommercialUsers.get(i).username.equals(id)) {
+                                        System.out.println("existed username");
+                                        letLoop = true;
+
+                                    }
+                                }
+                            }
+                            String newUsername = id;
+                            personalUser.username = newUsername;
+
+                        }
+                        else if(choice == 2){
+
+                        }
+                        else if(choice == 3){
+
+                        }
+                        else if(choice == 0){
+                            editProfileContinues = false;
+                            repeatHomePage = true;
+                        }
+                        else {
+                            System.out.println("invalid command");
+                            continue;
+                        }
+
+                    }
+                }
                 else if (option == 0) {
                     Manager.start();
                 }
@@ -2309,12 +2370,21 @@ public class Firstpage {
 
     public static void printHomePage_Personal(){
         System.out.println("Welcome to HomePage!\nChoose one to do:\n1-Visit Recent Posts\n2-Create post\n3-Follow new users\n" +
-                "4-Secret_Chats\n5-Make_Group\n6-Groups\n7-View my Profile\n0-Log out");
+                "4-Secret_Chats\n5-Make_Group\n6-Groups\n7-View my Profile\n8-Edit my Profile\n0-Log out");
     }
 
     public static void printHomePage_Commercial(){
         System.out.println("Welcome to HomePage!\nChoose one to do:\n1-Visit Recent Posts\n2-Create post\n3-Follow new users\n4-Show Stats\n" +
                 "5-View my Profile\n0-Log out");
+    }
+
+    public static void printEditProfilePage_Personal(){
+        System.out.println("choose one:");
+        System.out.println("1. change your username");
+        System.out.println("2. change your password");
+        System.out.println("3. edit your bio");
+        System.out.println("0. back");
+
     }
 
     public static void printNewPeople(ArrayList<User> followings , String myUsername){
@@ -2342,7 +2412,6 @@ public class Firstpage {
     {
 
     }
-
 
 
 }

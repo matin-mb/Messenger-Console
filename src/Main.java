@@ -36,8 +36,8 @@ public class Main {
                         resultSet.getString("password"),resultSet.getString("bio"));
                 commercialUser.securityQ = resultSet.getString("securityQ");
                 commercialUser.securityA= resultSet.getString("securityA");
-               CommercialUser.allCommercialUsers.add(commercialUser);
-               User.allUsers.add(commercialUser);
+                CommercialUser.allCommercialUsers.add(commercialUser);
+                User.allUsers.add(commercialUser);
 
             }
 
@@ -79,7 +79,7 @@ public class Main {
             Secret_Chat secret_chat = null;
             for (Secret_Chat all_secret_chat : Secret_Chat.all_Secret_Chats) {
                 if( (all_secret_chat.user1.equals(resultSet.getString("user1_id")) && all_secret_chat.user2.equals(resultSet.getString("user2_id") ) )
-                || (all_secret_chat.user2.equals(resultSet.getString("user1_id")) && all_secret_chat.user1.equals(resultSet.getString("user2_id") ) ) )
+                        || (all_secret_chat.user2.equals(resultSet.getString("user1_id")) && all_secret_chat.user1.equals(resultSet.getString("user2_id") ) ) )
                 {
                     secret_chat = all_secret_chat;
                 }
@@ -185,7 +185,7 @@ public class Main {
                 countMap.put(user, countMap.get(user) + 1);
             else
                 countMap.put(user, 1);
-            
+
         }
 
         HashMap<User,Integer> countMap1 = sortByValue(countMap);
