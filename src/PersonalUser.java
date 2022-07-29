@@ -1,19 +1,8 @@
-//import java.util.ArrayList;
-//
-//public class PersonalUser extends User {
-//    static ArrayList<PersonalUser> allPersonalUsers = new ArrayList<PersonalUser>();
-//
-//    public String emailAddress;
-//
-//
-//
-//
-//}
 import java.util.ArrayList;
 
 
 public class PersonalUser extends User {
-    static ArrayList<PersonalUser> allPersonalUsers = new ArrayList<PersonalUser>();
+    static ArrayList<PersonalUser> allPersonalUsers = new ArrayList<>();
     public String emailAddress;
 
     public PersonalUser(String username, String password, String bio) {

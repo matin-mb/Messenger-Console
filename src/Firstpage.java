@@ -1,626 +1,9 @@
-//import java.util.ArrayList;
-//import java.util.Scanner;
-//
-//public class Firstpage {
-//
-//    Scanner scanner =new Scanner(System.in);
-//
-//    public void signUp(String username, String password,int kind)
-//    {
-//        PersonalUser tempUser = new PersonalUser();
-//        tempUser.username ="parsann";
-//        tempUser.password = "1234567l";
-//        tempUser.bio = "I'm 19 from Sabzevar!";
-//        PersonalUser.allPersonalUsers.add(tempUser);
-//
-//        PersonalUser tempUser2 = new PersonalUser();
-//        tempUser2.username ="matin";
-//        tempUser2.password = "12345678";
-//        tempUser2.bio = "I'm 19";
-//        PersonalUser.allPersonalUsers.add(tempUser2);
-//
-//        if(kind==1)
-//        {
-//            PersonalUser personalUser =new PersonalUser();
-//            personalUser.password = password;
-//            personalUser.username = username;
-//            PersonalUser.allPersonalUsers.add(personalUser);
-//
-//            boolean repeatHomePage = true;
-//
-//            while (repeatHomePage) {
-//                repeatHomePage = false;
-//                // User interact
-//                printHomePage();
-//
-//                int option= Integer.parseInt(scanner.nextLine());
-//
-//                if(option == 1){
-//                    int t=0;
-//                    for(int i=Post.allPosts.size()-1;i>Post.allPosts.size()-20 && i>=0 ;i--)
-//                    {
-//                        System.out.println(String.valueOf(++t)+". " + Post.allPosts.get(i).text);
-//                    }
-//                    System.out.println("Do you want to react to these posts");
-//                    System.out.println("1. Yes");
-//                    System.out.println("2. No");
-//                    System.out.println("0. Back");
-//                    int num = Integer.parseInt(scanner.nextLine());
-//                    if(num==1)
-//                    {
-//                        System.out.println("Please enter the comment number...");
-//                        int num2=Integer.parseInt(scanner.nextLine());
-//                        System.out.println("Do you want to add comment to this post or just react or both...");
-//                        System.out.println("1. Add Comment");
-//                        System.out.println("2. Reaction");
-//                        System.out.println("3. Both");
-//                        int num3=Integer.parseInt(scanner.nextLine());
-//                        if (num3==1)
-//                        {
-//                            System.out.println("Please add your comment...");
-//                            Reaction reaction =new Reaction();
-//                            reaction.like=0;
-//                            reaction.dislike=0;
-//                            reaction.comment=scanner.nextLine();
-//                            Post.allPosts.get(Post.allPosts.size()-num).reactions.add(reaction);
-//                            reaction.user=personalUser;
-//                        }
-//                        else if(num3==2)
-//                        {
-//                            System.out.println("Please like or this like this post...");
-//                            System.out.println("1. Like");
-//                            System.out.println("2. dislike");
-//                            int num4=Integer.parseInt(scanner.nextLine());
-//                            Reaction reaction = new Reaction();
-//                            reaction.like=0;
-//                            reaction.dislike=0;
-//                            reaction.user=personalUser;
-//                            if (num4==1)
-//                            {
-//                                reaction.like=1;
-//
-//                            }
-//                            if(num4==2)
-//                            {
-//                                reaction.dislike=1;
-//
-//                            }
-//                        }
-//                        else if(num3==3)
-//                        {
-//                            System.out.println("Please add your comment...");
-//                            Reaction reaction =new Reaction();
-//                            reaction.like=0;
-//                            reaction.dislike=0;
-//                            reaction.comment=scanner.nextLine();
-//                            Post.allPosts.get(Post.allPosts.size()-num).reactions.add(reaction);
-//                            reaction.user=personalUser;
-//                            System.out.println("Please like or this like this post...");
-//                            System.out.println("1. Like");
-//                            System.out.println("2. dislike");
-//                            int num4=Integer.parseInt(scanner.nextLine());
-//                            if (num4==1)
-//                            {
-//                                reaction.like=1;
-//
-//                            }
-//                            if(num4==2)
-//                            {
-//                                reaction.dislike=1;
-//
-//                            }
-//                        }
-//
-//                    }
-//                    else if(num==2)
-//                    {
-//                        System.out.println("to see the reactions enter the post's number...");
-//                        t=0;
-//                        for(int i=Post.allPosts.size()-1;i>Post.allPosts.size()-20 && i>=0 ;i--)
-//                        {
-//                            System.out.println(String.valueOf(++t)+". " + Post.allPosts.get(i).text);
-//                        }
-//                        int num2= Integer.parseInt(scanner.nextLine());
-//                        System.out.println("Please enter your number...");
-//                        System.out.println("1. Show comments");
-//                        System.out.println("2. Show likes and dislikes");
-//                        int num3=Integer.parseInt(scanner.nextLine());
-//                        if(num3==1)
-//                        {
-//                            int f=0;
-//                            System.out.println("   "+"\t"+"Username"+"\t"+"Comment");
-//                            for (int i=0;i<Post.allPosts.get(Post.allPosts.size()-num2).reactions.size();i++)
-//                            {
-//                                if(!Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).comment.isEmpty())
-//                                {
-//                                    System.out.println(String.valueOf(++f)+". "+"\t" +Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).user.username+"\t"+Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).comment);
-//                                }
-//                            }
-//
-//                        }
-//                        else if(num3==2)
-//                        {
-//                            int f=0;
-//                            System.out.println("   "+"\t"+"Username"+"\t"+"like/dislike");
-//                            for (int i=0;i<Post.allPosts.get(Post.allPosts.size()-num2).reactions.size();i++)
-//                            {
-//                                if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).like == 1) {
-//                                    System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "\t" + "like");
-//                                }
-//                                if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).dislike == 1) {
-//                                    System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "\t" + "dislike");
-//                                }
-//
-//                            }
-//                        }
-//
-//                    }
-//
-//                    repeatHomePage=true;
-//
-//                }
-//                else if(option == 2) {
-//                    Post post = new Post();
-//                    System.out.println("Start your text  with ADD TEXT and finish it with POST...");
-//
-//                    String text =  scanner.nextLine();
-//
-//                    while (!text.equals("ADD TEXT"))
-//                    {
-//                        System.out.println("invalid start! please write down ADD TEXT...");
-//                        text = scanner.nextLine();
-//                    }
-//                    text = scanner.nextLine();
-//
-//                    post.text=text;
-//                    post.user=personalUser;
-//                    Post.allPosts.add(post);
-//                    text = scanner.nextLine();
-//
-//                    while (!text.equals("POST")) {
-//                        System.out.println("invalid finishing! please write down POST...");
-//                        text = scanner.nextLine();
-//                    }
-//                    repeatHomePage=true;
-//                }
-//                else if(option == 3) {
-//
-//                    System.out.println("enter your number...");
-//                    ArrayList<String> helpWithUsers = new ArrayList<String>();
-//
-//                    System.out.println("Personal_users:");
-//                    int t=0;
-//                    for (int i = 0; i < PersonalUser.allPersonalUsers.size(); i++) {
-//                        if (PersonalUser.allPersonalUsers.get(i).username.equals(personalUser.username)) {
-//                        } else {
-//                            boolean let = true;
-//                            for (int j = 0; j < personalUser.followers.size() && let; j++) {
-//                                if (personalUser.followers.get(j).username.equals(PersonalUser.allPersonalUsers.get(i).username)) {
-//                                    let = false;
-//                                }
-//                            }
-//                            if (let) {
-//                                System.out.println(String.valueOf(++t) + ". " + PersonalUser.allPersonalUsers.get(i).username);
-//                                helpWithUsers.add(PersonalUser.allPersonalUsers.get(i).username);
-//                            }
-//
-//                        }
-//                    }
-//                    System.out.println("0. Back");
-//                    int thisnumber =Integer.parseInt(scanner.nextLine());
-//                    if (thisnumber == 0) {
-//                    } else {
-//                        for (int j = 0; j < PersonalUser.allPersonalUsers.size(); j++) {
-//                            if (PersonalUser.allPersonalUsers.get(j).username.equals(helpWithUsers.get(thisnumber - 1))) {
-//                                personalUser.followers.add(PersonalUser.allPersonalUsers.get(j));
-//                                PersonalUser.allPersonalUsers.get(j).followings.add(personalUser);
-//                                j=PersonalUser.allPersonalUsers.size();
-//                                repeatHomePage = true;
-//
-//                            }
-//                        }
-//                    }
-//
-//                }
-//                else if(option == 4){
-//
-//                }
-//                else if(option == 5){
-//                    System.out.println("Username: " + personalUser.username );
-//                    System.out.println("Password: " + personalUser.password );
-//                    System.out.println("Bio: " + personalUser.bio );
-//                    System.out.println("EmailAddress: " + personalUser.emailAddress );
-//                    System.out.println("My followings: ");
-//                    for (int i=0;i<personalUser.followings.size();i++)
-//                    {
-//                        System.out.println(personalUser.followings.get(i).username);
-//                    }
-//                    System.out.println("My followers: ");
-//                    for (int i=0;i<personalUser.followers.size();i++)
-//                    {
-//                        System.out.println(String.valueOf(i+1)+". "+personalUser.followers.get(i).username);
-//                    }
-//
-//
-//
-//
-//
-//
-//                }
-//                else if(option == 0){
-//                    Manager.start();
-//
-//                }
-//
-//
-//
-//            }
-//
-//
-//        }
-//
-//        else
-//        {
-//            CommercialUser commercialUser = new CommercialUser();
-//
-//        }
-//
-//    }
-//
-//    public static void printHomePage(){
-//        System.out.println("Welcome to HomePage!\nChoose one to do:\n1-Visit Recent Posts\n2-Create post\n3-Follow new users\n4-Show Stats\n" +
-//                "5-View my Profile\n0-Log out");
-//    }
-//
-//    public static void printNewPeople(ArrayList<User> followings , String myUsername){
-//        ArrayList<String> userNames = new ArrayList<>();
-//        for (User following : followings) {
-//            userNames.add(following.username);
-//        }
-//
-//        System.out.println("New Users:");
-//        for (int i = 0; i < PersonalUser.allPersonalUsers.size(); i++) {
-//            if(!userNames.contains(PersonalUser.allPersonalUsers.get(i).username)
-//                    && !PersonalUser.allPersonalUsers.get(i).username.equals(myUsername)) {
-//                System.out.println("Id: " + PersonalUser.allPersonalUsers.get(i).username
-//                        + "\nBio: " + PersonalUser.allPersonalUsers.get(i).bio);
-//            }
-//        }
-//
-//    }
-//
-//
-//    public void login(PersonalUser personalUser)
-//    {
-//
-//    }
-//    public void login(CommercialUser commercialUser)
-//    {
-//
-//    }
-//
-//
-//}
 
-
-//import java.util.ArrayList;
-//import java.util.Scanner;
-//
-//public class Firstpage {
-//
-//    Scanner scanner =new Scanner(System.in);
-//
-//    public void signUp(String username, String password,int kind)
-//    {
-////        PersonalUser tempUser = new PersonalUser();
-////        tempUser.username ="parsann";
-////        tempUser.password = "1234567l";
-////        tempUser.bio = "I'm 19 from Sabzevar!";
-////        PersonalUser.allPersonalUsers.add(tempUser);
-////        //User.allUsers.add(tempUser);
-////
-////        PersonalUser tempUser2 = new PersonalUser();
-////        tempUser2.username ="matin";
-////        tempUser2.password = "12345678";
-////        tempUser2.bio = "I'm 19";
-////        PersonalUser.allPersonalUsers.add(tempUser2);
-////        //User.allUsers.add(tempUser2);
-//
-//        if(kind==1)
-//        {
-//            PersonalUser personalUser =new PersonalUser();
-//            personalUser.password = password;
-//            personalUser.username = username;
-//            PersonalUser.allPersonalUsers.add(personalUser);
-//
-//            boolean repeatHomePage = true;
-//
-//            while (repeatHomePage) {
-//                repeatHomePage = false;
-//                // User interact
-//                printHomePage();
-//
-//                int option= Integer.parseInt(scanner.nextLine());
-//
-//                if(option == 1){
-//                    int t=0;
-//                    for(int i=Post.allPosts.size()-1;i>Post.allPosts.size()-20 && i>=0 ;i--)
-//                    {
-//                        System.out.println(String.valueOf(++t)+". " + Post.allPosts.get(i).text);
-//                    }
-//                    System.out.println("Do you want to react to these posts");
-//                    System.out.println("1. Yes");
-//                    System.out.println("2. No");
-//                    System.out.println("0. Back");
-//                    int num = Integer.parseInt(scanner.nextLine());
-//                    if(num==1)
-//                    {
-//                        System.out.println("Please enter the comment number...");
-//                        int num2=Integer.parseInt(scanner.nextLine());
-//                        System.out.println("Do you want to add comment to this post or just react or both...");
-//                        System.out.println("1. Add Comment");
-//                        System.out.println("2. Reaction");
-//                        System.out.println("3. Both");
-//                        int num3=Integer.parseInt(scanner.nextLine());
-//                        if (num3==1)
-//                        {
-//                            System.out.println("Please add your comment...");
-//                            Reaction reaction =new Reaction();
-//                            reaction.like=0;
-//                            reaction.dislike=0;
-//                            reaction.comment=scanner.nextLine();
-//                            Post.allPosts.get(Post.allPosts.size()-num).reactions.add(reaction);
-//                            reaction.user=personalUser;
-//                        }
-//                        else if(num3==2)
-//                        {
-//                            System.out.println("Please like or this like this post...");
-//                            System.out.println("1. Like");
-//                            System.out.println("2. dislike");
-//                            int num4=Integer.parseInt(scanner.nextLine());
-//                            Reaction reaction = new Reaction();
-//                            reaction.like=0;
-//                            reaction.dislike=0;
-//                            reaction.user=personalUser;
-//                            if (num4==1)
-//                            {
-//                                reaction.like=1;
-//
-//                            }
-//                            if(num4==2)
-//                            {
-//                                reaction.dislike=1;
-//
-//                            }
-//                        }
-//                        else if(num3==3)
-//                        {
-//                            System.out.println("Please add your comment...");
-//                            Reaction reaction =new Reaction();
-//                            reaction.like=0;
-//                            reaction.dislike=0;
-//                            reaction.comment=scanner.nextLine();
-//                            Post.allPosts.get(Post.allPosts.size()-num).reactions.add(reaction);
-//                            reaction.user=personalUser;
-//                            System.out.println("Please like or this like this post...");
-//                            System.out.println("1. Like");
-//                            System.out.println("2. dislike");
-//                            int num4=Integer.parseInt(scanner.nextLine());
-//                            if (num4==1)
-//                            {
-//                                reaction.like=1;
-//
-//                            }
-//                            if(num4==2)
-//                            {
-//                                reaction.dislike=1;
-//
-//                            }
-//                        }
-//
-//                    }
-//                    else if(num==2)
-//                    {
-//                        System.out.println("to see the reactions enter the post's number...");
-//                        t=0;
-//                        for(int i=Post.allPosts.size()-1;i>Post.allPosts.size()-20 && i>=0 ;i--)
-//                        {
-//                            System.out.println(String.valueOf(++t)+". " + Post.allPosts.get(i).text);
-//                        }
-//                        int num2= Integer.parseInt(scanner.nextLine());
-//                        System.out.println("Please enter your number...");
-//                        System.out.println("1. Show comments");
-//                        System.out.println("2. Show likes and dislikes");
-//                        int num3=Integer.parseInt(scanner.nextLine());
-//                        if(num3==1)
-//                        {
-//                            int f=0;
-//                            System.out.println("   "+"\t"+"Username"+"\t"+"Comment");
-//                            for (int i=0;i<Post.allPosts.get(Post.allPosts.size()-num2).reactions.size();i++)
-//                            {
-//                                if(!Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).comment.isEmpty())
-//                                {
-//                                    System.out.println(String.valueOf(++f)+". "+"\t" +Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).user.username+"\t"+Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).comment);
-//                                }
-//                            }
-//
-//                        }
-//                        else if(num3==2)
-//                        {
-//                            int f=0;
-//                            System.out.println("   "+"\t"+"Username"+"\t"+"like/dislike");
-//                            for (int i=0;i<Post.allPosts.get(Post.allPosts.size()-num2).reactions.size();i++)
-//                            {
-//                                if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).like == 1) {
-//                                    System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "\t" + "like");
-//                                }
-//                                if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).dislike == 1) {
-//                                    System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "\t" + "dislike");
-//                                }
-//
-//                            }
-//                        }
-//
-//                    }
-//
-//                    repeatHomePage=true;
-//
-//                }
-//                else if(option == 2) {
-//                    Post post = new Post();
-//                    System.out.println("Start your text  with ADD TEXT and finish it with POST...");
-//
-//                    String text =  scanner.nextLine();
-//
-//                    while (!text.equals("ADD TEXT"))
-//                    {
-//                        System.out.println("invalid start! please write down ADD TEXT...");
-//                        text = scanner.nextLine();
-//                    }
-//                    text = new String(scanner.nextLine());
-//                    post.text=text;
-//                    post.user=personalUser;
-//                    Post.allPosts.add(post);
-//                    text = new String(scanner.nextLine());
-//
-//                    while (!text.equals("POST")) {
-//                        System.out.println("invalid finishing! please write down POST...");
-//                        text = new String(scanner.nextLine());
-//                    }
-//                    repeatHomePage=true;
-//                }
-//                else if(option == 3) {
-//
-//
-//                    System.out.println("enter your number...");
-//                    ArrayList<String> helpWithUsers = new ArrayList<String>();
-//
-//                    System.out.println("Personal_users:");
-//                    int t=0;
-//                    for (int i = 0; i < PersonalUser.allPersonalUsers.size(); i++) {
-//                        if (PersonalUser.allPersonalUsers.get(i).username.equals(personalUser.username)) {
-//                        } else {
-//                            boolean let = true;
-//                            for (int j = 0; j < personalUser.followers.size() && let; j++) {
-//                                if (personalUser.followers.get(j).equals(PersonalUser.allPersonalUsers.get(i).username)) {
-//                                    let = false;
-//                                }
-//                            }
-//                            if (let) {
-//                                System.out.println(String.valueOf(++t) + ". " + PersonalUser.allPersonalUsers.get(i).username);
-//                                helpWithUsers.add(PersonalUser.allPersonalUsers.get(i).username);
-//                            }
-//
-//                        }
-//                    }
-//                    System.out.println("0. Back");
-//                    int thisnumber =Integer.parseInt(scanner.nextLine());
-//                    if (thisnumber == 0) {
-//                    } else {
-//                        for (int j = 0; j < PersonalUser.allPersonalUsers.size(); j++) {
-//                            if (PersonalUser.allPersonalUsers.get(j).username.equals(helpWithUsers.get(thisnumber - 1))) {
-//                                personalUser.followers.add(PersonalUser.allPersonalUsers.get(j).username);
-//                                PersonalUser.allPersonalUsers.get(j).followings.add(personalUser.username);
-//                                j=PersonalUser.allPersonalUsers.size();
-//                                repeatHomePage = true;
-//
-//                            }
-//                        }
-//                    }
-//
-//                }
-//                else if(option == 4){
-//
-//                }
-//                else if(option == 5){
-//                    System.out.println("Username: " + personalUser.username );
-//                    System.out.println("Password: " + personalUser.password );
-//                    System.out.println("Bio: " + personalUser.bio );
-//                    System.out.println("EmailAddress: " + personalUser.emailAddress );
-//                    System.out.println("My followings: ");
-//                    for (int i=0;i<personalUser.followings.size();i++)
-//                    {
-//                        System.out.println(personalUser.followings.get(i));
-//                    }
-//                    System.out.println("My followers: ");
-//                    for (int i=0;i<personalUser.followers.size();i++)
-//                    {
-//                        System.out.println(String.valueOf(i+1)+". "+personalUser.followers.get(i));
-//                    }
-//
-//
-//
-//
-//
-//
-//                }
-//                else if(option == 0){
-//                    Manager.start();
-//
-//                }
-//
-//
-//
-//            }
-//
-//
-//        }
-//
-//        else
-//        {
-//            CommercialUser commercialUser = new CommercialUser();
-//
-//        }
-//
-//    }
-//
-//    public static void printHomePage(){
-//        System.out.println("Welcome to HomePage!\nChoose one to do:\n1-Visit Recent Posts\n2-Create post\n3-Follow new users\n4-Show Stats\n" +
-//                "5-View my Profile\n0-Log out");
-//    }
-//
-//    public static void printNewPeople(ArrayList<String> followings , String myUsername){
-////        ArrayList<String> userNames = new ArrayList<>();
-////        for (User following : followings) {
-////            userNames.add(following.username);
-////        }
-//        System.out.println("New Users:");
-////        for (int i = 0; i < PersonalUser.allPersonalUsers.size(); i++) {
-////            if(!userNames.contains(PersonalUser.allPersonalUsers.get(i).username)
-////                    && !PersonalUser.allPersonalUsers.get(i).username.equals(myUsername)) {
-////                System.out.println("Id: " + PersonalUser.allPersonalUsers.get(i).username
-////                        + "\nBio: " + PersonalUser.allPersonalUsers.get(i).bio);
-////            }
-////        }
-//        for (int i = 0; i < User.allUsers.size(); i++) {
-//            if(!followings.contains(User.allUsers.get(i).username) &
-//            User.allUsers.get(i).username.equals(myUsername)){
-//                System.out.println("Id: " + User.allUsers.get(i).username
-//                        + "\nBio: " + User.allUsers.get(i).bio);
-//
-//            }
-//
-//        }
-//    }
-//
-//
-//    public void login(PersonalUser personalUser)
-//    {
-//
-//    }
-//    public void login(CommercialUser commercialUser)
-//    {
-//
-//    }
-//
-//
-//
-//
-//
-//
-//}
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Firstpage {
@@ -647,7 +30,7 @@ public class Firstpage {
             }
             else {
                 personalUser = new PersonalUser();
-                personalUser.password = password;
+                personalUser.password = new StringBuilder(password);
                 personalUser.username = username;
 
                 personalUser.securityQ = Manager.securityQuestion.toString();
@@ -674,7 +57,12 @@ public class Firstpage {
 
                     int t = 0;
                     for (int i = Post.allPosts.size() - 1; i > Post.allPosts.size() - 20 && i >= 0; i--) {
-                        System.out.println(String.valueOf(++t) + ". " + Post.allPosts.get(i).text);
+                        System.out.print(String.valueOf(++t) + ". " + Post.allPosts.get(i).text );
+                        if(Post.allPosts.get(i).postTime != null){
+                            System.out.println("            " + Post.allPosts.get(i).postTime.toLocalDate().toString()
+                            + "  " + Post.allPosts.get(i).postTime.toLocalTime());
+                        }
+                        else System.out.println();
                     }
                     System.out.println();
                     System.out.println();
@@ -687,7 +75,7 @@ public class Firstpage {
                         t=0;
                         System.out.println("Please enter the comment number...");
                         for (int i = Post.allPosts.size() - 1; i > Post.allPosts.size() - 20 && i >= 0; i--) {
-                            System.out.println(String.valueOf(++t) + ". " + Post.allPosts.get(i).text);
+                            System.out.println(String.valueOf(++t) + ". " + Post.allPosts.get(i).text );
                         }
                         int num2 = Integer.parseInt(scanner.nextLine());
                         boolean letlet=true;
@@ -808,6 +196,9 @@ public class Firstpage {
                     String text = new String(scanner.nextLine());
                     post.text = text;
                     post.user = personalUser;
+                    post.postTime = LocalDateTime.now();
+
+
                     Post.allPosts.add(post);
 
                     repeatHomePage = true;
@@ -833,7 +224,8 @@ public class Firstpage {
                                     }
                                 }
                                 if (let) {
-                                    System.out.println(String.valueOf(++t) + ". " + PersonalUser.allPersonalUsers.get(i).username);
+                                    System.out.println(String.valueOf(++t) + ". " + PersonalUser.allPersonalUsers.get(i).username
+                                    + "  bio :" +  PersonalUser.allPersonalUsers.get(i).bio);
                                     helpWithUsers.add(PersonalUser.allPersonalUsers.get(i).username);
                                 }
 
@@ -873,7 +265,8 @@ public class Firstpage {
                                 }
 
                                 if (let) {
-                                    System.out.println(String.valueOf(++t) + ". " + CommercialUser.allCommercialUsers.get(i).username);
+                                    System.out.println(String.valueOf(++t) + ". " + CommercialUser.allCommercialUsers.get(i).username
+                                            + "  bio :" +  CommercialUser.allCommercialUsers.get(i).bio);
                                     helpWithUsers.add(CommercialUser.allCommercialUsers.get(i).username);
                                 }
 
@@ -1940,40 +1333,53 @@ public class Firstpage {
                         printEditProfilePage_Personal();
                         int choice = Integer.parseInt(scanner.nextLine());
                         if(choice == 1){
-                            //System.out.println("Enter new username:");
-                            //String newUserName =
-                            boolean letLoop = true;
-                            String id = null;
-                            while (letLoop) {
-                                letLoop = false;
-                                System.out.println("Please enter a new username ...");
-                                id = scanner.nextLine();
-                                while (id.isEmpty()) {
-                                    id = scanner.nextLine();
-                                }
-                                for (int i = 0; i < PersonalUser.allPersonalUsers.size() && !letLoop; i++) {
-                                    if (PersonalUser.allPersonalUsers.get(i).username.equals(id)) {
-                                        System.out.println("existed username");
-                                        letLoop = true;
+                            System.out.println("Enter your current password:");
+                            String oldPass = scanner.nextLine();
 
-                                    }
-                                }
-                                for (int i = 0; i < CommercialUser.allCommercialUsers.size() && !letLoop; i++) {
-                                    if (CommercialUser.allCommercialUsers.get(i).username.equals(id)) {
-                                        System.out.println("existed username");
-                                        letLoop = true;
+                            if(!personalUser.password.toString().equals(oldPass)){
+                                System.out.println("incorrect password");
+                                //repeatHomePage = true;
+                                continue;
+                            }
 
-                                    }
+                            boolean again2 = true;
+                            while (again2) {
+                                again2 = false;
+                                System.out.println("please enter a new password:");
+                                System.out.println("your password must contains  8 characters (both words and numbers)");
+                                String newPassword = scanner.nextLine();
+                                if (newPassword.length() != 8) {
+                                    System.out.println("invalid password");
+                                    again2 = true;
+                                }
+                                else if ((!newPassword.matches("[a-zA-Z0-9]+")) || (newPassword.matches("[1-9]+"))) {
+                                    System.out.println("invalid password");
+                                    System.out.println(newPassword);
+                                    again2 = true;
+                                }
+                                else {
+                                    personalUser.password.setLength(0);
+                                    personalUser.password.append(newPassword);
+                                    System.out.print("Your password has changed successfully!\nnew password : ");
+                                    System.out.println(personalUser.password);
+
                                 }
                             }
-                            String newUsername = id;
-                            personalUser.username = newUsername;
+
 
                         }
                         else if(choice == 2){
 
-                        }
-                        else if(choice == 3){
+                            System.out.println("Your current bio is:");
+                            System.out.println(personalUser.bio.toString());
+                            System.out.println("Enter your new bio (0. back)");
+                            String input = scanner.nextLine();
+                            if(input.equals("0")){
+                                //repeatHomePage = true;
+                                continue;
+                            }
+                            personalUser.bio.setLength(0);
+                            personalUser.bio.append(input);
 
                         }
                         else if(choice == 0){
@@ -1987,6 +1393,7 @@ public class Firstpage {
 
                     }
                 }
+
                 else if (option == 0) {
                     Manager.start();
                 }
@@ -2011,7 +1418,7 @@ public class Firstpage {
             }
             else {
                 commercialUser = new CommercialUser();
-                commercialUser.password = password;
+                commercialUser.password = new StringBuilder(password);
                 commercialUser.username = username;
 
                 commercialUser.securityQ = Manager.securityQuestion.toString();
@@ -2038,7 +1445,12 @@ public class Firstpage {
                 if (option == 1) {
                     int t = 0;
                     for (int i = Post.allPosts.size() - 1; i > Post.allPosts.size() - 20 && i >= 0; i--) {
-                        System.out.println(String.valueOf(++t) + ". " + Post.allPosts.get(i).text);
+                        System.out.print(String.valueOf(++t) + ". " + Post.allPosts.get(i).text);
+                        if(Post.allPosts.get(i).postTime != null){
+                            System.out.println("            " + Post.allPosts.get(i).postTime.toLocalDate().toString()
+                                    + "  " + Post.allPosts.get(i).postTime.toLocalTime().toString());
+                        }
+                        else System.out.println();
                     }
                     System.out.println();
                     System.out.println();
@@ -2157,7 +1569,8 @@ public class Firstpage {
 
                     repeatHomePage = true;
 
-                } else if (option == 2) {
+                }
+                else if (option == 2) {
                     Post post = new Post();
                     System.out.println("Please write down your post and enter -ENTER-  to finish it...");
                     String text = new String(scanner.nextLine());
@@ -2166,7 +1579,8 @@ public class Firstpage {
                     Post.allPosts.add(post);
 
                     repeatHomePage = true;
-                } else if (option == 3) {
+                }
+                else if (option == 3) {
 
                     System.out.println("enter your number...");
                     System.out.println("1. Personal Users");
@@ -2187,7 +1601,8 @@ public class Firstpage {
                                 }
 
                                 if (let) {
-                                    System.out.println(String.valueOf(++t) + ". " + PersonalUser.allPersonalUsers.get(i).username);
+                                    System.out.println(String.valueOf(++t) + ". " + PersonalUser.allPersonalUsers.get(i).username
+                                            + "  bio :" +  PersonalUser.allPersonalUsers.get(i).bio);
                                     helpWithUsers.add(PersonalUser.allPersonalUsers.get(i).username);
                                 }
 
@@ -2225,7 +1640,8 @@ public class Firstpage {
                                     }
                                 }
                                 if (let) {
-                                    System.out.println(String.valueOf(++t) + ". " + CommercialUser.allCommercialUsers.get(i).username);
+                                    System.out.println(String.valueOf(++t) + ". " + CommercialUser.allCommercialUsers.get(i).username
+                                            + "  bio :" +  CommercialUser.allCommercialUsers.get(i).bio);
                                     helpWithUsers.add(CommercialUser.allCommercialUsers.get(i).username);
                                 }
 
@@ -2359,13 +1775,80 @@ public class Firstpage {
                     }
 
 
-                } else if (option == 0) {
-                    Manager.start();
+                }
+                else if (option == 6) {
+                    boolean editProfileContinues = true;
+                    while (editProfileContinues){
+                        printEditProfilePage_Personal();
+                        int choice = Integer.parseInt(scanner.nextLine());
+                        if(choice == 1){
+                            System.out.println("Enter your current password:");
+                            String oldPass = scanner.nextLine();
 
+                            if(!commercialUser.password.toString().equals(oldPass)){
+                                System.out.println("incorrect password");
+                                //repeatHomePage = true;
+                                continue;
+                            }
+
+                            boolean again2 = true;
+                            while (again2) {
+                                again2 = false;
+                                System.out.println("please enter a new password:");
+                                System.out.println("your password must contains  8 characters (both words and numbers)");
+                                String newPassword = scanner.nextLine();
+                                if (newPassword.length() != 8) {
+                                    System.out.println("invalid password");
+                                    again2 = true;
+                                }
+                                else if ((!newPassword.matches("[a-zA-Z0-9]+")) || (newPassword.matches("[1-9]+"))) {
+                                    System.out.println("invalid password");
+                                    System.out.println(newPassword);
+                                    again2 = true;
+                                }
+                                else {
+                                    commercialUser.password.setLength(0);
+                                    commercialUser.password.append(newPassword);
+                                    System.out.print("Your password has changed successfully!\nnew password : ");
+                                    System.out.println(commercialUser.password);
+
+                                }
+                            }
+
+
+                        }
+                        else if(choice == 2){
+
+                            System.out.println("Your current bio is:");
+                            System.out.println(commercialUser.bio.toString());
+                            System.out.println("Enter your new bio (0. back)");
+                            String input = scanner.nextLine();
+                            if(input.equals("0")){
+                                //repeatHomePage = true;
+                                continue;
+                            }
+                            commercialUser.bio.setLength(0);
+                            commercialUser.bio.append(input);
+
+                        }
+                        else if(choice == 0){
+                            editProfileContinues = false;
+                            repeatHomePage = true;
+                        }
+                        else {
+                            System.out.println("invalid command");
+                            continue;
+                        }
+
+                    }
+                }
+                else if (option == 0) {
+                    Manager.start();
                 }
 
             }
         }
+
     }
 
     public static void printHomePage_Personal(){
@@ -2375,14 +1858,13 @@ public class Firstpage {
 
     public static void printHomePage_Commercial(){
         System.out.println("Welcome to HomePage!\nChoose one to do:\n1-Visit Recent Posts\n2-Create post\n3-Follow new users\n4-Show Stats\n" +
-                "5-View my Profile\n0-Log out");
+                "5-View my Profile\n6-Edit my Profile\n0-Log out");
     }
 
     public static void printEditProfilePage_Personal(){
         System.out.println("choose one:");
-        System.out.println("1. change your username");
-        System.out.println("2. change your password");
-        System.out.println("3. edit your bio");
+        System.out.println("1. change your password");
+        System.out.println("2. edit your bio");
         System.out.println("0. back");
 
     }

@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,8 @@ public class Main {
         while (resultSet.next()){
             User author = User.allUsers.get(resultSet.getInt("user_id") - 1);
             Post post = new Post(resultSet.getString("content"),author);
+            post.postTime = resultSet.getObject("postDateTime", LocalDateTime.class);
+            //System.out.println(post.postTime);
 
             Post.allPosts.add(post);
         }
@@ -155,6 +158,19 @@ public class Main {
 
         }
 
+        resultSet = statement.executeQuery("select * from groupclosed");
+        while (resultSet.next()){
+            String groupid = resultSet.getString("group_id");
+            Group group = null;
+            for (Group group1 : Group.groups) {
+                if(group1.id.equals(groupid))
+                    group = group1;
+            }
+            if(group != null)
+                group.closed_users.add(resultSet.getString("banned_user"));
+
+        }
+
     }
 
     public static void accountRecommender(User myUser) {
@@ -242,8 +258,12 @@ public class Main {
 
         for (User allUser : User.allUsers) {
             preparedStatement.setString(1, allUser.username);
-            preparedStatement.setString(2, allUser.password);
-            preparedStatement.setString(3,allUser.bio);
+            preparedStatement.setString(2, allUser.password.toString());
+            if(allUser.bio != null)
+                preparedStatement.setString(3,allUser.bio.toString());
+            else
+                preparedStatement.setString(3 , "no bio!");
+
             if(allUser.getClass() == PersonalUser.class )
                 preparedStatement.setInt(4,1);
             else
@@ -258,10 +278,11 @@ public class Main {
 
         statement.executeUpdate("truncate posts");
         preparedStatement = connection.prepareStatement("insert into posts" +
-                "(user_id,content) values (?,?)");
+                "(user_id,content,postDateTime) values (?,?,?)");
         for (Post allPost : Post.allPosts) {
             preparedStatement.setInt(1,getId(allPost.user));
             preparedStatement.setString(2,allPost.text);
+            preparedStatement.setObject(3 , allPost.postTime);
 
             preparedStatement.executeUpdate();
         }
@@ -349,6 +370,18 @@ public class Main {
             }
         }
 
+
+        statement.executeUpdate("truncate groupclosed");
+        preparedStatement = connection.prepareStatement("insert into groupclosed" +
+                "(group_id,banned_user) values (?,?)");
+
+        for (Group group : Group.groups) {
+            for (String closedUser : group.closed_users) {
+                preparedStatement.setString(1 , group.id);
+                preparedStatement.setString(2 , closedUser);
+                preparedStatement.executeUpdate();
+            }
+        }
 
     }
 

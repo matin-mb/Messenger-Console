@@ -1,6 +1,4 @@
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -79,8 +77,7 @@ public class Manager {
                                 String securityAns = sc.nextLine();
                                 Manager.securityQuestion = new StringBuilder(securityQuestions.get(rand));
                                 Manager.securityAnswer = new StringBuilder(securityAns);
-                                //System.out.println(securityAns);
-                                //Main.addSecurityQA(securityQuestions.get(rand),securityAns);
+
 
                                 again3 = false;
                                 System.out.println("Enter your number...");
@@ -127,9 +124,9 @@ public class Manager {
                                 for (int i = 0; i < PersonalUser.allPersonalUsers.size(); i++) {
                                     if (PersonalUser.allPersonalUsers.get(i).username.equals(username)) {
                                         c = true;
-                                        if (PersonalUser.allPersonalUsers.get(i).password.equals(password)) {
+                                        if (PersonalUser.allPersonalUsers.get(i).password.toString().equals(password)) {
                                             Firstpage firstpage1 = new Firstpage();
-                                            firstpage1.signUp(PersonalUser.allPersonalUsers.get(i).username, PersonalUser.allPersonalUsers.get(i).password, 1);
+                                            firstpage1.signUp(PersonalUser.allPersonalUsers.get(i).username, PersonalUser.allPersonalUsers.get(i).password.toString(), 1);
                                         } else {
                                             System.out.println("invalid password");
                                             again5 = true;
@@ -153,9 +150,9 @@ public class Manager {
                                 for (int i = 0; i < CommercialUser.allCommercialUsers.size(); i++) {
                                     if (CommercialUser.allCommercialUsers.get(i).username.equals(username)) {
                                         c = true;
-                                        if (CommercialUser.allCommercialUsers.get(i).password.equals(password)) {
+                                        if (CommercialUser.allCommercialUsers.get(i).password.toString().equals(password)) {
                                             Firstpage firstpage1 = new Firstpage();
-                                            firstpage1.signUp(CommercialUser.allCommercialUsers.get(i).username, CommercialUser.allCommercialUsers.get(i).password, 2);
+                                            firstpage1.signUp(CommercialUser.allCommercialUsers.get(i).username, CommercialUser.allCommercialUsers.get(i).password.toString(), 2);
                                         } else {
                                             System.out.println("invalid password");
                                             again5 = true;
