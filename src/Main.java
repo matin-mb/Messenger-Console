@@ -370,7 +370,8 @@ public class Main {
                 preparedStatement.setString(1, Group.groups.get(i).name);
                 preparedStatement.setString(2, Group.groups.get(i).admin);
                 preparedStatement.setString(3,user);
-                preparedStatement.setInt(4, i + 1);
+                //preparedStatement.setInt(4, i + 1);
+                preparedStatement.setInt(4 , Integer.parseInt(Group.groups.get(i).id));
 
                 preparedStatement.executeUpdate();
             }

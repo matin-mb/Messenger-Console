@@ -7,8 +7,6 @@ public class Post {
     String text ;
     User user;
     LocalDateTime postTime;
-//    LocalDate postDate;
-//    LocalTime postTime;
 
     ArrayList<Reaction> reactions = new  ArrayList<Reaction>();
     public static ArrayList<Post> allPosts = new ArrayList<Post>();
