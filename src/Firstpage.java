@@ -1849,8 +1849,6 @@ public class Firstpage {
 
     }
 
-
-
     public static void printHomePage_Personal(){
         System.out.println("Welcome to HomePage!\nChoose one to do:\n1-Visit Recent Posts\n2-Create post\n3-Follow new users\n" +
                 "4-Secret_Chats\n5-Make_Group\n6-Groups\n7-View my Profile\n8-Edit my Profile\n0-Log out");
