@@ -95,6 +95,7 @@ public class Main {
                 chats.replied = resultSet.getInt("replied");
                 chats.forwarded = resultSet.getInt("forwarded");
                 secret_chat.block = resultSet.getInt("blocked");
+                chats.ID = 1;
 
                 secret_chat.thisPVChats.add(chats);
             }
@@ -108,6 +109,7 @@ public class Main {
                 chats.text = new StringBuilder(resultSet.getString("text"));
                 chats.replied = resultSet.getInt("replied");
                 chats.forwarded = resultSet.getInt("forwarded");
+                chats.ID = secret_chat.thisPVChats.size() + 1;
 
                 secret_chat.thisPVChats.add(chats);
                 //secret_chat.thisPVChats.add(resultSet.)
@@ -243,6 +245,26 @@ public class Main {
 
         HashMap<User, Integer> temp = new LinkedHashMap<User, Integer>();
         for (Map.Entry<User, Integer> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
+    }
+
+    public static HashMap<Post, Integer> sortByValue1(HashMap<Post, Integer> hm) {
+        List<Map.Entry<Post, Integer> > list =
+                new LinkedList<Map.Entry<Post, Integer> >(hm.entrySet());
+
+
+        Collections.sort(list, new Comparator<Map.Entry<Post, Integer> >() {
+            public int compare(Map.Entry<Post, Integer> o1,
+                               Map.Entry<Post, Integer> o2)
+            {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+
+        HashMap<Post, Integer> temp = new LinkedHashMap<Post, Integer>();
+        for (Map.Entry<Post, Integer> aa : list) {
             temp.put(aa.getKey(), aa.getValue());
         }
         return temp;
@@ -395,6 +417,119 @@ public class Main {
 
         return id;
     }
+
+    public static void postRecommender(PersonalUser personalUser) {
+
+        ArrayList<String> followings = personalUser.followings;
+        ArrayList<User> userFollowings = new ArrayList<>();
+        for (String following : followings) {
+            userFollowings.add(getUser(following));
+        }
+
+        ArrayList<User> sameInterest = new ArrayList<>();
+        for (Post allPost : Post.allPosts) {
+            for (Reaction reaction : allPost.reactions) {
+                if(followings.contains(reaction.user.username)){
+                    //check if personal user has liked or disliked
+                    boolean liked = checkInterest(personalUser,allPost);
+                    if( (liked && reaction.like ==1) || (!liked && reaction.dislike == 1) ){
+                        sameInterest.add(reaction.user);
+                    }
+                }
+            }
+        }
+
+        HashMap<User,Integer> countMap = new HashMap<>();
+        for (User user : sameInterest) {
+            if (countMap.containsKey(user))
+                countMap.put(user, countMap.get(user) + 1);
+            else
+                countMap.put(user, 1);
+
+        }
+
+        HashMap<User,Integer> countMap1 = sortByValue(countMap);
+        sameInterest = (ArrayList<User>) countMap1.keySet().stream().collect(Collectors.toList());
+
+        ArrayList<User> sameInterest1 = new ArrayList<>();
+        for (int i = sameInterest.size() - 1; i >= 0; i--) {
+            sameInterest1.add(sameInterest.get(i));
+        }
+
+        ArrayList<Post> recommendedPost = new ArrayList<>();
+
+
+        for (User user : sameInterest1) {
+            for (Post allPost : Post.allPosts) {
+                if( allPost.user.getClass() == CommercialUser.class ){
+
+                    boolean seenByFollowing = checkHadReaction(user , allPost);
+                    if(seenByFollowing && checkInterest((PersonalUser) user, allPost)) {
+                        boolean seen = checkHadReaction(personalUser, allPost);
+                        if (!seen) {
+                            recommendedPost.add(allPost);
+                        }
+                    }
+
+                }
+            }
+        }
+
+        HashMap<Post,Integer> countMap2 = new HashMap<>();
+        for (Post post : recommendedPost) {
+            if (countMap2.containsKey(post))
+                countMap2.put(post, countMap2.get(post) + 1);
+            else
+                countMap2.put(post, 1);
+
+        }
+
+        HashMap<Post,Integer> countMap3 = sortByValue1(countMap2);
+        recommendedPost = (ArrayList<Post>) countMap3.keySet().stream().collect(Collectors.toList());
+
+
+        ArrayList<Post> recommendedPost1 = new ArrayList<>();
+        for (int i = recommendedPost.size() - 1; i >= 0 ; i--) {
+            recommendedPost1.add(recommendedPost.get(i));
+        }
+        recommendedPost = recommendedPost1;
+
+
+        System.out.println("Recommended Commercial Posts:");
+        for (int i = 0; i < recommendedPost.size(); i++) {
+            System.out.println( (i+1) + " - " + recommendedPost.get(i).user.username + " : " +
+                    recommendedPost.get(i).text + "    " + recommendedPost.get(i).postTime.toLocalDate() + "  "
+            + recommendedPost.get(i).postTime.toLocalTime());
+        }
+        if(recommendedPost.size() == 0 ) System.out.println("No recommended Commercial Posts!");
+        System.out.println();
+
+
+    }
+
+    private static boolean checkHadReaction(User user, Post allPost) {
+        boolean hadReacted = false;
+        for (Reaction reaction : allPost.reactions) {
+            if(reaction.user.username.equals(user.username)){
+                hadReacted = true;
+            }
+        }
+        return hadReacted;
+    }
+
+    private static boolean checkInterest(PersonalUser personalUser, Post allPost) {
+
+        boolean likes = false;
+        for (Reaction reaction : allPost.reactions) {
+            if(reaction.user.username.equals(personalUser.username)){
+                if(reaction.like == 1)
+                    likes = true;
+            }
+        }
+
+        return likes;
+    }
+
 
 //    public static void addSecurityQA(String securityQ , String securityA) throws SQLException {
 //        Statement statement = connection.createStatement();

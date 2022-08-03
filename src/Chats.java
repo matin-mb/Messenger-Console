@@ -8,7 +8,6 @@ public class Chats {
         int replied;
         int forwarded;
         public static ArrayList<Chats> allChats = new ArrayList<Chats>();
-        int alaki;
 
     }
 
