@@ -173,6 +173,13 @@ public class Main {
 
         }
 
+        resultSet = statement.executeQuery("select * from viewing");
+        while (resultSet.next()){
+
+            Post.allPosts.get(resultSet.getInt("post_id") - 1).allView.add(resultSet.getString("viewer"));
+
+        }
+
     }
 
     public static void accountRecommender(User myUser) {
@@ -402,6 +409,19 @@ public class Main {
             for (String closedUser : group.closed_users) {
                 preparedStatement.setString(1 , group.id);
                 preparedStatement.setString(2 , closedUser);
+                preparedStatement.executeUpdate();
+            }
+        }
+
+        statement.executeUpdate("truncate viewing");
+        preparedStatement = connection.prepareStatement("insert into viewing" +
+                "(post_id,viewer) values (?,?)");
+
+
+        for (int i = 0; i < Post.allPosts.size(); i++) {
+            for (String s : Post.allPosts.get(i).allView) {
+                preparedStatement.setInt(1,i + 1);
+                preparedStatement.setString(2,s);
                 preparedStatement.executeUpdate();
             }
         }

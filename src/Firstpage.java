@@ -86,7 +86,7 @@ public class Firstpage {
                             }
                         }
                         if(letlet) {
-                            Post.allPosts.get(Post.allPosts.size() - num).allView.add(personalUser.username);
+                            Post.allPosts.get(Post.allPosts.size() - num2).allView.add(personalUser.username);
                         }
                         System.out.println("Do you want to add comment to this post or just react or both...");
                         System.out.println("1. Add Comment");
@@ -1474,7 +1474,7 @@ public class Firstpage {
                             }
                         }
                         if(letlet) {
-                            Post.allPosts.get(Post.allPosts.size() - num).allView.add(commercialUser.username);
+                            Post.allPosts.get(Post.allPosts.size() - num2).allView.add(commercialUser.username);
                         }
                         System.out.println("Enter your number...");
                         System.out.println("1. Add Comment");
@@ -1529,7 +1529,8 @@ public class Firstpage {
                             }
                         }
 
-                    } else if (num == 2) {
+                    }
+                    else if (num == 2) {
                         System.out.println("to see the reactions enter the post's number...");
                         t = 0;
                         for (int i = Post.allPosts.size() - 1; i > Post.allPosts.size() - 20 && i >= 0; i--) {

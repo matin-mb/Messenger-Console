@@ -10,7 +10,8 @@ public class Post {
 
     ArrayList<Reaction> reactions = new  ArrayList<Reaction>();
     public static ArrayList<Post> allPosts = new ArrayList<Post>();
-    public static ArrayList<String> allView = new ArrayList<>();
+    //public static ArrayList<String> allView = new ArrayList<>();
+    public ArrayList<String> allView = new ArrayList<>();
 
     public Post(String text, User user) {
         this.text = text;
