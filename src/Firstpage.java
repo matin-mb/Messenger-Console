@@ -7,7 +7,6 @@ public class Firstpage {
     int  counter=0;
     Scanner scanner =new Scanner(System.in);
 
-
     public void signUp(String username, String password,int kind) throws SQLException {
 
 
@@ -102,7 +101,6 @@ public class Firstpage {
                             reaction.like = 0;
                             reaction.dislike = 0;
                             reaction.comment = scanner.nextLine();
-//                            Post.allPosts.get(Post.allPosts.size() - num).reactions.add(reaction);
                             Post.allPosts.get(Post.allPosts.size() - num2).reactions.add(reaction);
                             reaction.user = personalUser;
                         }
@@ -256,13 +254,16 @@ public class Firstpage {
                         System.out.println("Commercial_users:");
                         int t = 0;
                         for (int i = 0; i < CommercialUser.allCommercialUsers.size(); i++) {
+                            if(CommercialUser.allCommercialUsers.get(i).username.equals(personalUser.username)) {
 
+                            }
+                            else {
                             boolean let = true;
                             for (int j = 0; j < personalUser.followings.size() && let; j++) {
                                 if (personalUser.followings.get(j).equals(CommercialUser.allCommercialUsers.get(i).username)) {
                                     let = false;
                                 }
-
+                            }
                                 if (let) {
                                     System.out.println(String.valueOf(++t) + ". " + CommercialUser.allCommercialUsers.get(i).username
                                             + "  bio :" +  CommercialUser.allCommercialUsers.get(i).bio);
@@ -274,7 +275,10 @@ public class Firstpage {
                         System.out.println("0. Back");
                         int thisnumber = Integer.parseInt(scanner.nextLine());
                         if (thisnumber == 0) {
-                        } else {
+                            repeatHomePage = true;
+                            continue;
+                        }
+                        else {
                             for (int j = 0; j < CommercialUser.allCommercialUsers.size(); j++) {
                                 if (CommercialUser.allCommercialUsers.get(j).username.equals(helpWithUsers.get(thisnumber - 1))) {
                                     personalUser.followings.add(CommercialUser.allCommercialUsers.get(j).username);
@@ -414,75 +418,242 @@ public class Firstpage {
 
                                     } else if (chat1.startsWith("for")) {
                                         t = 0;
+
                                         System.out.println("to...?");
-                                        for (int i = 0; i < Secret_Chat.all_Secret_Chats.size(); i++) {
-                                            if (Secret_Chat.all_Secret_Chats.get(i).user1.equals(personalUser.username)) {
-                                                System.out.println(String.valueOf(++t) + ". with  " + Secret_Chat.all_Secret_Chats.get(i).user2);
-                                            } else if (Secret_Chat.all_Secret_Chats.get(i).user2.equals(personalUser.username)) {
-                                                System.out.println(String.valueOf(++t) + ". with  " + Secret_Chat.all_Secret_Chats.get(i).user1);
+                                        System.out.println("1. Groups");
+                                        System.out.println("2. Secret_Chats");
+                                        System.out.println();
+                                        int num6 = Integer.parseInt(scanner.nextLine());
+                                        if (num6 == 1) {
+                                            System.out.println("to...?");
+                                            ArrayList<Group> thisS1 = new ArrayList<Group>();
+                                            boolean let01 = false;
+
+                                            for (int i = 0; i < Group.groups.size(); i++) {
+                                                if (Group.groups.get(i).users.contains(personalUser.username)) {
+                                                    System.out.println(String.valueOf(++t) + ". " + Group.groups.get(i).name);
+                                                    thisS1.add(Group.groups.get(i));
+                                                    let01 = true;
+
+                                                }
                                             }
-                                        }
-                                        Chats chats = new Chats();
-                                        chats.replied = -1;
-                                        chats.forwarded = PersonalUser.findPU(username);
-                                        chats.text = secret_chat.thisPVChats.get(Integer.parseInt(String.valueOf(chat1.charAt(4)))-1).text;
-                                        chats.ID = ++counter;
-                                        chats.sender = personalUser.username;
+                                            Group[] thisSe1 = new Group[thisS1.size()];
+                                            if (let01) {
 
-                                        int num = Integer.parseInt(scanner.nextLine());
-                                        Secret_Chat secret_chat1 = new Secret_Chat();
-                                        secret_chat1 = thisSe[num - 1];
-                                        if (secret_chat1.user1.equals(personalUser.username))
-                                            chats.receiver = secret_chat1.user2;
-                                        else
-                                            chats.receiver = secret_chat1.user1;
-                                        secret_chat1.thisPVChats.add(chats);
-                                        Chats.allChats.add(chats);
-                                        conWithChat = false;
-                                        repeatHomePage = true;
-                                    }
-                                    else if(chat1.equals("1")) {
-
-                                        System.out.println("Which line do you want to edit?");
-                                        te = 0;
-                                        for (int i = 0; i < secret_chat.thisPVChats.size(); i++) {
-                                            if (secret_chat.thisPVChats.get(i).replied == -1 && secret_chat.thisPVChats.get(i).forwarded == -1) {
-                                                System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + secret_chat.thisPVChats.get(i).text);
-                                            } else if (secret_chat.thisPVChats.get(i).replied != -1) {
-                                                System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + "replied to" + String.valueOf(secret_chat.thisPVChats.get(i).replied) + " : " + secret_chat.thisPVChats.get(i).text);
-
-                                            } else if (secret_chat.thisPVChats.get(i).forwarded != -1) {
-                                                System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(secret_chat.thisPVChats.get(i).forwarded).username + " : " + secret_chat.thisPVChats.get(i).text);
+                                                thisSe1 = thisS1.toArray(thisSe1);
                                             }
-                                        }
-                                        boolean forwarded = false;
-                                        while (!forwarded) {
+                                            Chats chats = new Chats();
+                                            chats.replied = -1;
+                                            chats.forwarded = PersonalUser.findPU(username);
+                                            chats.text = secret_chat.thisPVChats.get(Integer.parseInt(String.valueOf(chat1.charAt(4))) - 1).text;
+                                            chats.ID = ++counter;
+                                            chats.sender = personalUser.username;
+
                                             int num = Integer.parseInt(scanner.nextLine());
-                                            if(num!=0) {
-                                                if (secret_chat.thisPVChats.get(num - 1).forwarded == -1) {
+                                            if (num != 0) {
+                                                Group group1 = new Group();
 
-                                                    System.out.println("Please type the new one.(without rep_n or for_n)");
-                                                    secret_chat.thisPVChats.get(num - 1).text = new StringBuilder(scanner.nextLine());
-                                                    forwarded=true;
+                                                group1 = thisSe1[num - 1];
 
-                                                }
-                                                else
-                                                {
-                                                    System.out.println("You can't edit forwarded messages. Please enter a new one or enter 0 to back");
-                                                }
-
+                                                group1.groupChats.add(chats);
+                                                Chats.allChats.add(chats);
                                             }
-                                            else {
-                                                forwarded=true;
-                                            }
+                                            System.out.println();
+                                            System.out.println();
                                             conWithChat = false;
                                             repeatHomePage = true;
 
+                                        } else {
+                                            System.out.println("to...?");
+//
+                                            for (int i = 0; i < Secret_Chat.all_Secret_Chats.size(); i++) {
+                                                if (Secret_Chat.all_Secret_Chats.get(i).user1.equals(personalUser.username)) {
+                                                    System.out.println(String.valueOf(++t) + ". with  " + Secret_Chat.all_Secret_Chats.get(i).user2);
+                                                } else if (Secret_Chat.all_Secret_Chats.get(i).user2.equals(personalUser.username)) {
+                                                    System.out.println(String.valueOf(++t) + ". with  " + Secret_Chat.all_Secret_Chats.get(i).user1);
+                                                }
+                                            }
+                                            Chats chats = new Chats();
+                                            chats.replied = -1;
+                                            chats.forwarded = PersonalUser.findPU(username);
+                                            chats.text = secret_chat.thisPVChats.get(Integer.parseInt(String.valueOf(chat1.charAt(4))) - 1).text;
+                                            chats.ID = ++counter;
+                                            chats.sender = personalUser.username;
+
+                                            int num = Integer.parseInt(scanner.nextLine());
+                                            if (num != 0) {
+                                                boolean let01 = false;
+                                                Secret_Chat secret_chat1 = new Secret_Chat();
+                                                ArrayList<Secret_Chat> thisS1 = new ArrayList<Secret_Chat>();
+                                                for (int i = 0; i < Secret_Chat.all_Secret_Chats.size(); i++) {
+                                                    if (Secret_Chat.all_Secret_Chats.get(i).user1.equals(personalUser.username) || Secret_Chat.all_Secret_Chats.get(i).user2.equals(personalUser.username)) {
+                                                        let01 = true;
+                                                        thisS.add(Secret_Chat.all_Secret_Chats.get(i));
+                                                    }
+                                                }
+                                                Secret_Chat[] thisSe1 = new Secret_Chat[thisS1.size()];
+
+
+                                                if (let01) {
+
+                                                    thisSe1 = thisS1.toArray(thisSe1);
+                                                }
+                                                secret_chat1 = thisSe1[num - 1];
+                                                if (secret_chat1.user1.equals(personalUser.username))
+                                                    chats.receiver = secret_chat1.user2;
+                                                else
+                                                    chats.receiver = secret_chat1.user1;
+                                                secret_chat1.thisPVChats.add(chats);
+                                                Chats.allChats.add(chats);
+                                            }
+                                            System.out.println();
+                                            System.out.println();
+                                            conWithChat = false;
+                                            repeatHomePage = true;
+                                        }
+
+                                    }
+                                    else if(chat1.equals("1")) {
+
+                                        boolean edit =false;
+                                        for (int i = 0; i < secret_chat.thisPVChats.size() && !edit; i++) {
+                                            if (secret_chat.thisPVChats.get(i).sender.equals(personalUser.username)) {
+                                                edit =true;
+                                            }
+                                        }
+                                        if(!edit)
+                                        {
+                                            System.out.println("there isn't any chat from you here, you can chat now");
+                                        }
+                                        if(edit) {
+                                            System.out.println("Which line do you want to edit?");
+                                            te = 0;
+                                            ArrayList<Chats> mychats = new ArrayList<Chats>();
+                                            for (int i = 0; i < secret_chat.thisPVChats.size(); i++) {
+                                                if (secret_chat.thisPVChats.get(i).sender.equals(personalUser.username)) {
+                                                    if (secret_chat.thisPVChats.get(i).replied == -1 && secret_chat.thisPVChats.get(i).forwarded == -1) {
+                                                        System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + secret_chat.thisPVChats.get(i).text);
+                                                    } else if (secret_chat.thisPVChats.get(i).replied != -1) {
+                                                        System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + "replied to" + String.valueOf(secret_chat.thisPVChats.get(i).replied) + " : " +secret_chat.thisPVChats.get(i).text);
+
+                                                    } else if (secret_chat.thisPVChats.get(i).forwarded != -1) {
+                                                        System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(secret_chat.thisPVChats.get(i).forwarded).username + " : " +secret_chat.thisPVChats.get(i).text);
+                                                    }
+                                                    mychats.add(secret_chat.thisPVChats.get(i));
+
+                                                }
+                                            }
+                                            boolean forwarded = false;
+                                            while (!forwarded) {
+                                                int num = Integer.parseInt(scanner.nextLine());
+                                                Chats chat01= new Chats();
+                                                if (num != 0) {
+                                                    chat01=mychats.get(num-1);
+
+                                                    chat01=mychats.get(num-1);
+
+                                                    if (chat01.forwarded == -1) {
+
+                                                        System.out.println("Please type the new one.(without rep_n or for_n)");
+                                                        chat01.text = new StringBuilder(scanner.nextLine());
+                                                        forwarded = true;
+                                                    } else {
+                                                        System.out.println("You can't edit forwarded messages. Please enter a new one or enter 0 to back");
+                                                    }
+                                                } else {
+                                                    forwarded = true;
+                                                }
+                                                conWithChat = true;
+                                                repeatHomePage = true;
+                                            }
+                                            System.out.println();
+                                            System.out.println("continue...");
+                                            te=0;
+                                            for (int i = 0; i <secret_chat.thisPVChats.size(); i++) {
+                                                if (secret_chat.thisPVChats.get(i).replied == -1 && secret_chat.thisPVChats.get(i).forwarded == -1) {
+                                                    System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + secret_chat.thisPVChats.get(i).text);
+                                                } else if (secret_chat.thisPVChats.get(i).replied != -1) {
+                                                    System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + "replied to" + String.valueOf(secret_chat.thisPVChats.get(i).replied) + " : " + secret_chat.thisPVChats.get(i).text);
+
+                                                } else if (secret_chat.thisPVChats.get(i).forwarded != -1) {
+                                                    System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(secret_chat.thisPVChats.get(i).forwarded).username + " : " + secret_chat.thisPVChats.get(i).text);
+                                                }
+                                            }
+                                            System.out.println("\n");
+                                            System.out.println("\n");
+                                            System.out.println("Hint. to reply the nth line in your chat you must start your line with -rep_n:- or there is a normal chat ");
+                                            System.out.println("example:");
+                                            System.out.println("rep_2:perfect!");
+                                            System.out.println("Hint. to forward the nth line in your chat you must start your line with -for_n:- or there is a normal chat ");
+                                            System.out.println("example:");
+                                            System.out.println("for_5");
+                                            System.out.println();
+                                            System.out.println("you can enter these numbers in chatting situation to ...");
+                                            System.out.println("2. delete");
+                                            System.out.println("1. edit");
+                                            System.out.println("0. Back or finish Chatting");
+                                            System.out.println("-1. Block");
+
+                                            conWithChat = true;
+                                            repeatHomePage = true;
                                         }
                                     }
                                     else if(chat1.equals("2"))
                                     {
-                                        System.out.println("Which line do you want to edit?");
+                                        boolean tlet = true;
+                                        for (int i = 0; i < secret_chat.thisPVChats.size() && tlet; i++) {
+                                            if (secret_chat.thisPVChats.get(i).sender.equals(personalUser.username)) {
+                                                tlet = false;
+                                            }
+                                        }
+                                        if (tlet) {
+                                            System.out.println("there isn't any chat from you here, you can chat now");
+                                        }
+                                        if (!tlet) {
+                                            System.out.println("Which line do you want to delete?");
+                                            te = 0;
+                                            ArrayList<Integer> chat_ints = new ArrayList<Integer>();
+                                            for (int i = 0; i < secret_chat.thisPVChats.size(); i++) {
+                                                if (secret_chat.thisPVChats.get(i).sender.equals(personalUser.username)) {
+                                                    if (secret_chat.thisPVChats.get(i).replied == -1 && secret_chat.thisPVChats.get(i).forwarded == -1) {
+                                                        System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + secret_chat.thisPVChats.get(i).text);
+                                                    } else if (secret_chat.thisPVChats.get(i).replied != -1) {
+                                                        System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + "replied to" + String.valueOf(secret_chat.thisPVChats.get(i).replied) + " : " + secret_chat.thisPVChats.get(i).text);
+
+                                                    } else if (secret_chat.thisPVChats.get(i).forwarded != -1) {
+                                                        System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(secret_chat.thisPVChats.get(i).forwarded).username + " : " + secret_chat.thisPVChats.get(i).text);
+                                                    }
+                                                    chat_ints.add(i);
+                                                }
+                                            }
+                                            System.out.println("0. Back");
+                                            int nu = Integer.parseInt(scanner.nextLine());
+                                            if (nu != 0) {
+                                                int num = chat_ints.get(nu - 1) + 1;
+//                                                    int id = group.groupChats.get(num - 1).ID;
+//                                                    Chats.allChats.remove(id - 1);
+
+                                                for (int i = 0; i < secret_chat.thisPVChats.size(); i++) {
+                                                    if (secret_chat.thisPVChats.get(i).replied == num) {
+                                                        secret_chat.thisPVChats.get(i).replied = -1;
+                                                    } else if (secret_chat.thisPVChats.get(i).replied >= num) {
+                                                        secret_chat.thisPVChats.get(i).replied--;
+                                                    }
+//                                                        if (i >= num) {
+//                                                            group.groupChats.get(i).ID--;
+//                                                        }
+
+                                                }
+                                                secret_chat.thisPVChats.remove(num - 1);
+//                                                    for (int i = 0; i < Chats.allChats.size(); i++) {
+//                                                        System.out.println(String.valueOf(Chats.allChats.get(i).ID) + "   " + Chats.allChats.get(i).text);
+//                                                    }
+                                                conWithChat = true;
+                                                repeatHomePage = true;
+                                            }
+                                        }
+                                        System.out.println();
+                                        System.out.println("continue...");
                                         te=0;
                                         for (int i = 0; i < secret_chat.thisPVChats.size(); i++) {
                                             if (secret_chat.thisPVChats.get(i).replied == -1 && secret_chat.thisPVChats.get(i).forwarded == -1) {
@@ -494,32 +665,22 @@ public class Firstpage {
                                                 System.out.println(String.valueOf(++te) + ". " + secret_chat.thisPVChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(secret_chat.thisPVChats.get(i).forwarded).username + " : " + secret_chat.thisPVChats.get(i).text);
                                             }
                                         }
-                                        int num = Integer.parseInt(scanner.nextLine());
-                                        int id=secret_chat.thisPVChats.get(num-1).ID;
-                                        Chats.allChats.remove(id-1);
+                                        System.out.println("\n");
+                                        System.out.println("\n");
+                                        System.out.println("Hint. to reply the nth line in your chat you must start your line with -rep_n:- or there is a normal chat ");
+                                        System.out.println("example:");
+                                        System.out.println("rep_2:perfect!");
+                                        System.out.println("Hint. to forward the nth line in your chat you must start your line with -for_n:- or there is a normal chat ");
+                                        System.out.println("example:");
+                                        System.out.println("for_5");
+                                        System.out.println();
+                                        System.out.println("you can enter these numbers in chatting situation to ...");
+                                        System.out.println("2. delete");
+                                        System.out.println("1. edit");
+                                        System.out.println("0. Back or finish Chatting");
+                                        System.out.println("-1. Block");
 
-                                        for (int i=0;i<secret_chat.thisPVChats.size();i++)
-                                        {
-                                            if(secret_chat.thisPVChats.get(i).replied==num)
-                                            {
-                                                secret_chat.thisPVChats.get(i).replied=-1;
-                                            }
-                                            else if(secret_chat.thisPVChats.get(i).replied>=num)
-                                            {
-                                                secret_chat.thisPVChats.get(i).replied--;
-                                            }
-                                            if(i>=num)
-                                            {
-                                                secret_chat.thisPVChats.get(i).ID--;
-                                            }
-
-                                        }
-                                        secret_chat.thisPVChats.remove(num-1);
-                                        for (int i=0;i<Chats.allChats.size();i++)
-                                        {
-                                            System.out.println(String.valueOf(Chats.allChats.get(i).ID)+"   "+Chats.allChats.get(i).text);
-                                        }
-                                        conWithChat = false;
+                                        conWithChat = true;
                                         repeatHomePage = true;
                                     }
                                     else if (chat1.equals("0")) {
@@ -726,7 +887,6 @@ public class Firstpage {
                                 System.out.println("2. delete");
                                 System.out.println("1. edit");
                                 System.out.println("0. Back or finish Chatting");
-                                System.out.println("-1. Block");
                                 while (conWithChat) {
                                     String chat1 = scanner.nextLine();
                                     if (!chat1.isEmpty()) {
@@ -831,39 +991,143 @@ public class Firstpage {
                                                 repeatGroupPage = true;
                                             }
                                         } else if (chat1.equals("1")) {
-                                            System.out.println("Which line do you want to edit?");
-                                            te = 0;
-                                            for (int i = 0; i < group.groupChats.size(); i++) {
-                                                if (group.groupChats.get(i).replied == -1 && group.groupChats.get(i).forwarded == -1) {
-                                                    System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + group.groupChats.get(i).text);
-                                                } else if (group.groupChats.get(i).replied != -1) {
-                                                    System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "replied to" + String.valueOf(group.groupChats.get(i).replied) + " : " + group.groupChats.get(i).text);
-
-                                                } else if (group.groupChats.get(i).forwarded != -1) {
-                                                    System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(group.groupChats.get(i).forwarded).username + " : " + group.groupChats.get(i).text);
+                                            boolean edit =false;
+                                            for (int i = 0; i < group.groupChats.size() && !edit; i++) {
+                                                if (group.groupChats.get(i).sender.equals(personalUser.username)) {
+                                                    edit =true;
                                                 }
                                             }
-                                            boolean forwarded = false;
-                                            while (!forwarded) {
-                                                int num = Integer.parseInt(scanner.nextLine());
-                                                if (num != 0) {
-                                                    if (group.groupChats.get(num - 1).forwarded == -1) {
+                                            if(!edit)
+                                            {
+                                                System.out.println("there isn't any chat from you here, you can chat now");
+                                            }
+                                            if(edit) {
+                                                System.out.println("Which line do you want to edit?");
+                                                te = 0;
+                                                ArrayList<Chats> mychats = new ArrayList<Chats>();
+                                                for (int i = 0; i < group.groupChats.size(); i++) {
+                                                    if (group.groupChats.get(i).sender.equals(personalUser.username)) {
+                                                        if (group.groupChats.get(i).replied == -1 && group.groupChats.get(i).forwarded == -1) {
+                                                            System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + group.groupChats.get(i).text);
+                                                        } else if (group.groupChats.get(i).replied != -1) {
+                                                            System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "replied to" + String.valueOf(group.groupChats.get(i).replied) + " : " + group.groupChats.get(i).text);
 
-                                                        System.out.println("Please type the new one.(without rep_n or for_n)");
-                                                        group.groupChats.get(num - 1).text = new StringBuilder(scanner.nextLine());
-                                                        forwarded = true;
-                                                    } else {
-                                                        System.out.println("You can't edit forwarded messages. Please enter a new one or enter 0 to back");
+                                                        } else if (group.groupChats.get(i).forwarded != -1) {
+                                                            System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(group.groupChats.get(i).forwarded).username + " : " + group.groupChats.get(i).text);
+                                                        }
+                                                        mychats.add(group.groupChats.get(i));
+
                                                     }
-                                                } else {
-                                                    forwarded = true;
                                                 }
-                                                conWithChat = false;
+                                                boolean forwarded = false;
+                                                while (!forwarded) {
+                                                    int num = Integer.parseInt(scanner.nextLine());
+                                                    Chats chat01= new Chats();
+                                                    if (num != 0) {
+                                                        chat01=mychats.get(num-1);
+
+                                                        chat01=mychats.get(num-1);
+
+                                                        if (chat01.forwarded == -1) {
+
+                                                            System.out.println("Please type the new one.(without rep_n or for_n)");
+                                                            chat01.text = new StringBuilder(scanner.nextLine());
+                                                            forwarded = true;
+                                                        } else {
+                                                            System.out.println("You can't edit forwarded messages. Please enter a new one or enter 0 to back");
+                                                        }
+                                                    } else {
+                                                        forwarded = true;
+                                                    }
+                                                    conWithChat = true;
+                                                    repeatGroupPage = true;
+                                                }
+                                                System.out.println();
+                                                System.out.println("continue...");
+                                                te=0;
+                                                for (int i = 0; i < group.groupChats.size(); i++) {
+                                                    if (group.groupChats.get(i).replied == -1 && group.groupChats.get(i).forwarded == -1) {
+                                                        System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + group.groupChats.get(i).text);
+                                                    } else if (group.groupChats.get(i).replied != -1) {
+                                                        System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "replied to" + String.valueOf(group.groupChats.get(i).replied) + " : " + group.groupChats.get(i).text);
+
+                                                    } else if (group.groupChats.get(i).forwarded != -1) {
+                                                        System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(group.groupChats.get(i).forwarded).username + " : " + group.groupChats.get(i).text);
+                                                    }
+                                                }
+                                                System.out.println("\n");
+                                                System.out.println("\n");
+                                                System.out.println("Hint. to reply the nth line in your chat you must start your line with -rep_n:- or there is a normal chat ");
+                                                System.out.println("example:");
+                                                System.out.println("rep_2:perfect!");
+                                                System.out.println("Hint. to forward the nth line in your chat you must start your line with -for_n:- or there is a normal chat ");
+                                                System.out.println("example:");
+                                                System.out.println("for_5");
+                                                System.out.println();
+                                                System.out.println("you can enter these numbers in chatting situation to ...");
+                                                System.out.println("2. delete");
+                                                System.out.println("1. edit");
+                                                System.out.println("0. Back or finish Chatting");
+
+                                                conWithChat = true;
                                                 repeatGroupPage = true;
                                             }
                                         } else if (chat1.equals("2")) {
-                                            System.out.println("Which line do you want to edit?");
-                                            te = 0;
+                                            boolean tlet = true;
+                                            for (int i = 0; i < group.groupChats.size() && tlet; i++) {
+                                                if (group.groupChats.get(i).sender.equals(personalUser.username)) {
+                                                    tlet = false;
+                                                }
+                                            }
+                                            if (tlet) {
+                                                System.out.println("there isn't any chat from you here, you can chat now");
+                                            }
+                                            if (!tlet) {
+                                                System.out.println("Which line do you want to delete?");
+                                                te = 0;
+                                                ArrayList<Integer> chat_ints = new ArrayList<Integer>();
+                                                for (int i = 0; i < group.groupChats.size(); i++) {
+                                                    if (group.groupChats.get(i).sender.equals(personalUser.username)) {
+                                                        if (group.groupChats.get(i).replied == -1 && group.groupChats.get(i).forwarded == -1) {
+                                                            System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + group.groupChats.get(i).text);
+                                                        } else if (group.groupChats.get(i).replied != -1) {
+                                                            System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "replied to" + String.valueOf(group.groupChats.get(i).replied) + " : " + group.groupChats.get(i).text);
+
+                                                        } else if (group.groupChats.get(i).forwarded != -1) {
+                                                            System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(group.groupChats.get(i).forwarded).username + " : " + group.groupChats.get(i).text);
+                                                        }
+                                                        chat_ints.add(i);
+                                                    }
+                                                }
+                                                System.out.println("0. Back");
+                                                int nu = Integer.parseInt(scanner.nextLine());
+                                                if (nu != 0) {
+                                                    int num = chat_ints.get(nu - 1) + 1;
+//                                                int id = group.groupChats.get(num - 1).ID;
+//                                                Chats.allChats.remove(id - 1);
+
+                                                    for (int i = 0; i < group.groupChats.size(); i++) {
+                                                        if (group.groupChats.get(i).replied == num) {
+                                                            group.groupChats.get(i).replied = -1;
+                                                        } else if (group.groupChats.get(i).replied >= num) {
+                                                            group.groupChats.get(i).replied--;
+                                                        }
+//                                                    if (i >= num) {
+//                                                        group.groupChats.get(i).ID--;
+//                                                    }
+
+                                                    }
+                                                    group.groupChats.remove(num - 1);
+//                                                for (int i = 0; i < Chats.allChats.size(); i++) {
+//                                                    System.out.println(String.valueOf(Chats.allChats.get(i).ID) + "   " + Chats.allChats.get(i).text);
+//                                                }
+                                                    conWithChat = true;
+                                                    repeatGroupPage = true;
+                                                }
+                                            }
+                                            System.out.println();
+                                            System.out.println("continue...");
+                                            te=0;
                                             for (int i = 0; i < group.groupChats.size(); i++) {
                                                 if (group.groupChats.get(i).replied == -1 && group.groupChats.get(i).forwarded == -1) {
                                                     System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + group.groupChats.get(i).text);
@@ -874,26 +1138,21 @@ public class Firstpage {
                                                     System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(group.groupChats.get(i).forwarded).username + " : " + group.groupChats.get(i).text);
                                                 }
                                             }
-                                            int num = Integer.parseInt(scanner.nextLine());
-                                            int id = group.groupChats.get(num - 1).ID;
-                                            Chats.allChats.remove(id - 1);
+                                            System.out.println("\n");
+                                            System.out.println("\n");
+                                            System.out.println("Hint. to reply the nth line in your chat you must start your line with -rep_n:- or there is a normal chat ");
+                                            System.out.println("example:");
+                                            System.out.println("rep_2:perfect!");
+                                            System.out.println("Hint. to forward the nth line in your chat you must start your line with -for_n:- or there is a normal chat ");
+                                            System.out.println("example:");
+                                            System.out.println("for_5");
+                                            System.out.println();
+                                            System.out.println("you can enter these numbers in chatting situation to ...");
+                                            System.out.println("2. delete");
+                                            System.out.println("1. edit");
+                                            System.out.println("0. Back or finish Chatting");
 
-                                            for (int i = 0; i < group.groupChats.size(); i++) {
-                                                if (group.groupChats.get(i).replied == num) {
-                                                    group.groupChats.get(i).replied = -1;
-                                                } else if (group.groupChats.get(i).replied >= num) {
-                                                    group.groupChats.get(i).replied--;
-                                                }
-                                                if (i >= num) {
-                                                    group.groupChats.get(i).ID--;
-                                                }
-
-                                            }
-                                            group.groupChats.remove(num - 1);
-                                            for (int i = 0; i < Chats.allChats.size(); i++) {
-                                                System.out.println(String.valueOf(Chats.allChats.get(i).ID) + "   " + Chats.allChats.get(i).text);
-                                            }
-                                            conWithChat = false;
+                                            conWithChat = true;
                                             repeatGroupPage = true;
                                         }
                                         else if (chat1.equals("0")) {
@@ -1061,6 +1320,7 @@ public class Firstpage {
                             System.out.println("1. Chatting...");
                             System.out.println("2. Group_Profile");
                             System.out.println("3. Members");
+                            System.out.println("0. back");
 
                             int num3 = Integer.parseInt(scanner.nextLine());
                             if (num3 == 1) {
@@ -1090,10 +1350,10 @@ public class Firstpage {
                                     System.out.println("example:");
                                     System.out.println("for_5");
                                     System.out.println();
+                                    System.out.println("you can enter these numbers in chatting situation to ...");
                                     System.out.println("2. delete");
                                     System.out.println("1. edit");
                                     System.out.println("0. Back or finish Chatting");
-                                    System.out.println("-1. Block");
                                     while (conWithChat) {
                                         String chat1 = scanner.nextLine();
                                         if (!chat1.isEmpty()) {
@@ -1148,6 +1408,8 @@ public class Firstpage {
                                                         group1.groupChats.add(chats);
                                                         Chats.allChats.add(chats);
                                                     }
+                                                    System.out.println();
+                                                    System.out.println();
                                                     conWithChat = false;
                                                     repeatGroupPage = true;
 
@@ -1194,43 +1456,149 @@ public class Firstpage {
                                                         secret_chat1.thisPVChats.add(chats);
                                                         Chats.allChats.add(chats);
                                                     }
+                                                    System.out.println();
+                                                    System.out.println();
                                                     conWithChat = false;
                                                     repeatGroupPage = true;
                                                 }
                                             } else if (chat1.equals("1")) {
-                                                System.out.println("Which line do you want to edit?");
-                                                te = 0;
-                                                for (int i = 0; i < group.groupChats.size(); i++) {
-                                                    if (group.groupChats.get(i).replied == -1 && group.groupChats.get(i).forwarded == -1) {
-                                                        System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + group.groupChats.get(i).text);
-                                                    } else if (group.groupChats.get(i).replied != -1) {
-                                                        System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "replied to" + String.valueOf(group.groupChats.get(i).replied) + " : " + group.groupChats.get(i).text);
-
-                                                    } else if (group.groupChats.get(i).forwarded != -1) {
-                                                        System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(group.groupChats.get(i).forwarded).username + " : " + group.groupChats.get(i).text);
+                                                boolean edit =false;
+                                                for (int i = 0; i < group.groupChats.size() && !edit; i++) {
+                                                    if (group.groupChats.get(i).sender.equals(personalUser.username)) {
+                                                        edit =true;
                                                     }
                                                 }
-                                                boolean forwarded = false;
-                                                while (!forwarded) {
-                                                    int num = Integer.parseInt(scanner.nextLine());
-                                                    if (num != 0) {
-                                                        if (group.groupChats.get(num - 1).forwarded == -1) {
+                                                if(!edit)
+                                                {
+                                                    System.out.println("there isn't any chat from you here, you can chat now");
+                                                }
+                                                if(edit) {
+                                                    System.out.println("Which line do you want to edit?");
+                                                    te = 0;
+                                                    ArrayList<Chats> mychats = new ArrayList<Chats>();
+                                                    for (int i = 0; i < group.groupChats.size(); i++) {
+                                                        if (group.groupChats.get(i).sender.equals(personalUser.username)) {
+                                                            if (group.groupChats.get(i).replied == -1 && group.groupChats.get(i).forwarded == -1) {
+                                                                System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + group.groupChats.get(i).text);
+                                                            } else if (group.groupChats.get(i).replied != -1) {
+                                                                System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "replied to" + String.valueOf(group.groupChats.get(i).replied) + " : " + group.groupChats.get(i).text);
 
-                                                            System.out.println("Please type the new one.(without rep_n or for_n)");
-                                                            group.groupChats.get(num - 1).text = new StringBuilder(scanner.nextLine());
-                                                            forwarded = true;
-                                                        } else {
-                                                            System.out.println("You can't edit forwarded messages. Please enter a new one or enter 0 to back");
+                                                            } else if (group.groupChats.get(i).forwarded != -1) {
+                                                                System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(group.groupChats.get(i).forwarded).username + " : " + group.groupChats.get(i).text);
+                                                            }
+                                                            mychats.add(group.groupChats.get(i));
+
                                                         }
-                                                    } else {
-                                                        forwarded = true;
                                                     }
-                                                    conWithChat = false;
+                                                    boolean forwarded = false;
+                                                    while (!forwarded) {
+                                                        int num = Integer.parseInt(scanner.nextLine());
+                                                        Chats chat01= new Chats();
+                                                        if (num != 0) {
+                                                            chat01=mychats.get(num-1);
+
+                                                            chat01=mychats.get(num-1);
+
+                                                            if (chat01.forwarded == -1) {
+
+                                                                System.out.println("Please type the new one.(without rep_n or for_n)");
+                                                                chat01.text = new StringBuilder(scanner.nextLine());
+                                                                forwarded = true;
+                                                            } else {
+                                                                System.out.println("You can't edit forwarded messages. Please enter a new one or enter 0 to back");
+                                                            }
+                                                        } else {
+                                                            forwarded = true;
+                                                        }
+                                                        conWithChat = true;
+                                                        repeatGroupPage = true;
+                                                    }
+                                                    System.out.println();
+                                                    System.out.println("continue...");
+                                                    te=0;
+                                                    for (int i = 0; i < group.groupChats.size(); i++) {
+                                                        if (group.groupChats.get(i).replied == -1 && group.groupChats.get(i).forwarded == -1) {
+                                                            System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + group.groupChats.get(i).text);
+                                                        } else if (group.groupChats.get(i).replied != -1) {
+                                                            System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "replied to" + String.valueOf(group.groupChats.get(i).replied) + " : " + group.groupChats.get(i).text);
+
+                                                        } else if (group.groupChats.get(i).forwarded != -1) {
+                                                            System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(group.groupChats.get(i).forwarded).username + " : " + group.groupChats.get(i).text);
+                                                        }
+                                                    }
+                                                    System.out.println("\n");
+                                                    System.out.println("\n");
+                                                    System.out.println("Hint. to reply the nth line in your chat you must start your line with -rep_n:- or there is a normal chat ");
+                                                    System.out.println("example:");
+                                                    System.out.println("rep_2:perfect!");
+                                                    System.out.println("Hint. to forward the nth line in your chat you must start your line with -for_n:- or there is a normal chat ");
+                                                    System.out.println("example:");
+                                                    System.out.println("for_5");
+                                                    System.out.println();
+                                                    System.out.println("you can enter these numbers in chatting situation to ...");
+                                                    System.out.println("2. delete");
+                                                    System.out.println("1. edit");
+                                                    System.out.println("0. Back or finish Chatting");
+
+                                                    conWithChat = true;
                                                     repeatGroupPage = true;
                                                 }
                                             } else if (chat1.equals("2")) {
-                                                System.out.println("Which line do you want to edit?");
-                                                te = 0;
+                                                boolean tlet = true;
+                                                for (int i = 0; i < group.groupChats.size() && tlet; i++) {
+                                                    if (group.groupChats.get(i).sender.equals(personalUser.username)) {
+                                                        tlet = false;
+                                                    }
+                                                }
+                                                if (tlet) {
+                                                    System.out.println("there isn't any chat from you here, you can chat now");
+                                                }
+                                                if (!tlet) {
+                                                    System.out.println("Which line do you want to delete?");
+                                                    te = 0;
+                                                    ArrayList<Integer> chat_ints = new ArrayList<Integer>();
+                                                    for (int i = 0; i < group.groupChats.size(); i++) {
+                                                        if (group.groupChats.get(i).sender.equals(personalUser.username)) {
+                                                            if (group.groupChats.get(i).replied == -1 && group.groupChats.get(i).forwarded == -1) {
+                                                                System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + group.groupChats.get(i).text);
+                                                            } else if (group.groupChats.get(i).replied != -1) {
+                                                                System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "replied to" + String.valueOf(group.groupChats.get(i).replied) + " : " + group.groupChats.get(i).text);
+
+                                                            } else if (group.groupChats.get(i).forwarded != -1) {
+                                                                System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(group.groupChats.get(i).forwarded).username + " : " + group.groupChats.get(i).text);
+                                                            }
+                                                            chat_ints.add(i);
+                                                        }
+                                                    }
+                                                    System.out.println("0. Back");
+                                                    int nu = Integer.parseInt(scanner.nextLine());
+                                                    if (nu != 0) {
+                                                        int num = chat_ints.get(nu - 1) + 1;
+//                                                        int id = group.groupChats.get(num - 1).ID;
+//                                                    Chats.allChats.remove(id - 1);
+
+                                                        for (int i = 0; i < group.groupChats.size(); i++) {
+                                                            if (group.groupChats.get(i).replied == num) {
+                                                                group.groupChats.get(i).replied = -1;
+                                                            } else if (group.groupChats.get(i).replied >= num) {
+                                                                group.groupChats.get(i).replied--;
+                                                            }
+//                                                        if (i >= num) {
+//                                                            group.groupChats.get(i).ID--;
+//                                                        }
+
+                                                        }
+                                                        group.groupChats.remove(num - 1);
+//                                                    for (int i = 0; i < Chats.allChats.size(); i++) {
+//                                                        System.out.println(String.valueOf(Chats.allChats.get(i).ID) + "   " + Chats.allChats.get(i).text);
+//                                                    }
+                                                        conWithChat = true;
+                                                        repeatGroupPage = true;
+                                                    }
+                                                }
+                                                System.out.println();
+                                                System.out.println("continue...");
+                                                te=0;
                                                 for (int i = 0; i < group.groupChats.size(); i++) {
                                                     if (group.groupChats.get(i).replied == -1 && group.groupChats.get(i).forwarded == -1) {
                                                         System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + group.groupChats.get(i).text);
@@ -1241,28 +1609,24 @@ public class Firstpage {
                                                         System.out.println(String.valueOf(++te) + ". " + group.groupChats.get(i).sender + ": " + "forwarded from " + PersonalUser.allPersonalUsers.get(group.groupChats.get(i).forwarded).username + " : " + group.groupChats.get(i).text);
                                                     }
                                                 }
-                                                int num = Integer.parseInt(scanner.nextLine());
-                                                int id = group.groupChats.get(num - 1).ID;
-                                                Chats.allChats.remove(id - 1);
+                                                System.out.println("\n");
+                                                System.out.println("\n");
+                                                System.out.println("Hint. to reply the nth line in your chat you must start your line with -rep_n:- or there is a normal chat ");
+                                                System.out.println("example:");
+                                                System.out.println("rep_2:perfect!");
+                                                System.out.println("Hint. to forward the nth line in your chat you must start your line with -for_n:- or there is a normal chat ");
+                                                System.out.println("example:");
+                                                System.out.println("for_5");
+                                                System.out.println();
+                                                System.out.println("you can enter these numbers in chatting situation to ...");
+                                                System.out.println("2. delete");
+                                                System.out.println("1. edit");
+                                                System.out.println("0. Back or finish Chatting");
 
-                                                for (int i = 0; i < group.groupChats.size(); i++) {
-                                                    if (group.groupChats.get(i).replied == num) {
-                                                        group.groupChats.get(i).replied = -1;
-                                                    } else if (group.groupChats.get(i).replied >= num) {
-                                                        group.groupChats.get(i).replied--;
-                                                    }
-                                                    if (i >= num) {
-                                                        group.groupChats.get(i).ID--;
-                                                    }
-
-                                                }
-                                                group.groupChats.remove(num - 1);
-                                                for (int i = 0; i < Chats.allChats.size(); i++) {
-                                                    System.out.println(String.valueOf(Chats.allChats.get(i).ID) + "   " + Chats.allChats.get(i).text);
-                                                }
-                                                conWithChat = false;
+                                                conWithChat = true;
                                                 repeatGroupPage = true;
-                                            } else if (chat1.equals("0")) {
+                                            }
+                                            else if (chat1.equals("0")) {
                                                 conWithChat = false;
                                                 repeatGroupPage = true;
                                             } else {
@@ -1278,6 +1642,7 @@ public class Firstpage {
 
                                             }
                                         }
+
                                     }
                                 }
                             }
@@ -1487,7 +1852,7 @@ public class Firstpage {
                             reaction.like = 0;
                             reaction.dislike = 0;
                             reaction.comment = scanner.nextLine();
-                            Post.allPosts.get(Post.allPosts.size() - num).reactions.add(reaction);
+                            Post.allPosts.get(Post.allPosts.size() - num2).reactions.add(reaction);
                             reaction.user = commercialUser;
                         } else if (num3 == 2) {
                             System.out.println("Please like or this like this post...");
@@ -1505,7 +1870,7 @@ public class Firstpage {
                             if (num4 == 2) {
                                 reaction.dislike = 1;
                             }
-                            Post.allPosts.get(Post.allPosts.size() - num).reactions.add(reaction);
+                            Post.allPosts.get(Post.allPosts.size() - num2).reactions.add(reaction);
 
 
                         } else if (num3 == 3) {
@@ -1514,7 +1879,7 @@ public class Firstpage {
                             reaction.like = 0;
                             reaction.dislike = 0;
                             reaction.comment = scanner.nextLine();
-                            Post.allPosts.get(Post.allPosts.size() - num).reactions.add(reaction);
+                            Post.allPosts.get(Post.allPosts.size() - num2).reactions.add(reaction);
                             reaction.user = commercialUser;
                             System.out.println("Please like or this like this post...");
                             System.out.println("1. Like");
@@ -1529,8 +1894,7 @@ public class Firstpage {
                             }
                         }
 
-                    }
-                    else if (num == 2) {
+                    } else if (num == 2) {
                         System.out.println("to see the reactions enter the post's number...");
                         t = 0;
                         for (int i = Post.allPosts.size() - 1; i > Post.allPosts.size() - 20 && i >= 0; i--) {
@@ -1593,13 +1957,16 @@ public class Firstpage {
                         System.out.println("Personal_users:");
                         int t = 0;
                         for (int i = 0; i < PersonalUser.allPersonalUsers.size(); i++) {
+                            if(PersonalUser.allPersonalUsers.get(i).username.equals(commercialUser.username)){
 
+                            }
+                            else {
                             boolean let = true;
                             for (int j = 0; j < commercialUser.followings.size() && let; j++) {
                                 if (commercialUser.followings.get(j).equals(PersonalUser.allPersonalUsers.get(i).username)) {
                                     let = false;
                                 }
-
+                            }
                                 if (let) {
                                     System.out.println(String.valueOf(++t) + ". " + PersonalUser.allPersonalUsers.get(i).username
                                             + "  bio :" +  PersonalUser.allPersonalUsers.get(i).bio);
@@ -1650,6 +2017,8 @@ public class Firstpage {
                         System.out.println("0. Back");
                         int thisnumber = Integer.parseInt(scanner.nextLine());
                         if (thisnumber == 0) {
+                            repeatHomePage = true;
+                            continue;
                         } else {
                             for (int j = 0; j < CommercialUser.allCommercialUsers.size(); j++) {
                                 if (CommercialUser.allCommercialUsers.get(j).username.equals(helpWithUsers.get(thisnumber - 1))) {
@@ -1772,6 +2141,8 @@ public class Firstpage {
                     for (int i = 0; i < commercialUser.followers.size(); i++) {
                         System.out.println(String.valueOf(i + 1) + ". " + commercialUser.followers.get(i));
                     }
+                    repeatHomePage = true;
+
 
 
                 }
@@ -1849,6 +2220,7 @@ public class Firstpage {
         }
 
     }
+
 
     public static void printHomePage_Personal(){
         System.out.println("Welcome to HomePage!\nChoose one to do:\n1-Visit Recent Posts\n2-Create post\n3-Follow new users\n" +

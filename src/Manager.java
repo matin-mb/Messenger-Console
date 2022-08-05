@@ -129,7 +129,13 @@ public class Manager {
                                             firstpage1.signUp(PersonalUser.allPersonalUsers.get(i).username, PersonalUser.allPersonalUsers.get(i).password.toString(), 1);
                                         } else {
                                             System.out.println("invalid password");
-                                            again5 = true;
+                                            //again5 = true;
+                                            //
+                                            again5 = false;
+                                            again4 = false;
+                                            againe1 = false;
+                                            break;
+                                            //
                                         }
                                     }
                                 }
@@ -138,7 +144,8 @@ public class Manager {
                                     again5 = true;
                                 }
                             }
-                        } else if (choice4 == 2) {
+                        }
+                        else if (choice4 == 2) {
                             boolean again5 = true;
                             while (again5) {
                                 again5 = false;
@@ -155,7 +162,11 @@ public class Manager {
                                             firstpage1.signUp(CommercialUser.allCommercialUsers.get(i).username, CommercialUser.allCommercialUsers.get(i).password.toString(), 2);
                                         } else {
                                             System.out.println("invalid password");
-                                            again5 = true;
+                                            //again5 = true;
+                                            again5 = false;
+                                            again4 = false;
+                                            againe1 = false;
+                                            break;
                                         }
                                     }
                                 }
@@ -164,7 +175,8 @@ public class Manager {
                                     again5 = true;
                                 }
                             }
-                        } else if (choice4 == 0) {
+                        }
+                        else if (choice4 == 0) {
                             System.exit(0);
                         } else {
                             System.out.println("invalid number");

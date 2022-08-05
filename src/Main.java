@@ -122,7 +122,7 @@ public class Main {
         while (resultSet.next()){
             Group group = null;
             for (Group group1 : Group.groups) {
-                if(group1.admin.equals(resultSet.getString("groupAdmin"))){
+                if(group1.name.equals(resultSet.getString("groupName"))){
                     group = group1;
                 }
             }
@@ -144,9 +144,14 @@ public class Main {
 
         resultSet = statement.executeQuery("select * from groupchats" );
         while (resultSet.next()){
-            Group group;
+            Group group = null;
             int groupId = resultSet.getInt("group_id");
-            group = Group.groups.get(groupId - 1);
+            //group = Group.groups.get(groupId - 1);
+            for (Group group1 : Group.groups) {
+                if(Integer.parseInt(group1.id) == groupId){
+                    group = group1;
+                }
+            }
 
             //group.groupChats.add(resultSet.getString())
             Chats chats = new Chats();
