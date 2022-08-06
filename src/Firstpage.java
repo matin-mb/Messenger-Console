@@ -71,7 +71,7 @@ public class Firstpage {
                     if (num == 1) {
                         t=0;
                         System.out.println("Please enter the comment number...");
-                        for (int i = Post.allPosts.size() - 1; i > Post.allPosts.size() - 20 && i >= 0; i--) {
+                        for (int i = Post.allPosts.size() - 1; i >= 0; i--) {
                             System.out.println(String.valueOf(++t) + ". " + Post.allPosts.get(i).text );
                         }
                         int num2 = Integer.parseInt(scanner.nextLine());
@@ -87,6 +87,7 @@ public class Firstpage {
                         if(letlet) {
                             Post.allPosts.get(Post.allPosts.size() - num2).allView.add(personalUser.username);
                         }
+
                         System.out.println("Do you want to add comment to this post or just react or both...");
                         System.out.println("1. Add Comment");
                         System.out.println("2. Reaction");
@@ -103,6 +104,7 @@ public class Firstpage {
                             reaction.comment = scanner.nextLine();
                             Post.allPosts.get(Post.allPosts.size() - num2).reactions.add(reaction);
                             reaction.user = personalUser;
+
                         }
                         else if (num3 == 2) {
                             System.out.println("Please like or this like this post...");
@@ -150,7 +152,7 @@ public class Firstpage {
                     else if (num == 2) {
                         System.out.println("to see the reactions enter the post's number...");
                         t = 0;
-                        for (int i = Post.allPosts.size() - 1; i > Post.allPosts.size() - 20 && i >= 0; i--) {
+                        for (int i = Post.allPosts.size() - 1; i >= 0; i--) {
                             System.out.println(String.valueOf(++t) + ". " + Post.allPosts.get(i).text);
                         }
                         int num2 = Integer.parseInt(scanner.nextLine());
@@ -159,29 +161,61 @@ public class Firstpage {
                         System.out.println("2. Show likes and dislikes");
                         int num3 = Integer.parseInt(scanner.nextLine());
                         if (num3 == 1) {
+                            System.out.println();
+                            System.out.println();
                             int f = 0;
-                            System.out.println("   " + "\t" + "Username" + "\t" + "Comment");
+                            boolean by = true;
                             for (int i = 0; i < Post.allPosts.get(Post.allPosts.size() - num2).reactions.size(); i++) {
-                                if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).comment!=null) {
-                                    System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).comment);
+                                if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).comment != null) {
+                                    by = false;
                                 }
                             }
+                            if (!by) {
+                                f = 0;
+                                System.out.println("   " + "\t" + "Username" + "\t" + "Comment");
+                                for (int i = 0; i < Post.allPosts.get(Post.allPosts.size() - num2).reactions.size(); i++) {
+                                    if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).comment != null) {
+                                        System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "       " + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).comment);
+                                    }
+                                }
+                            } else {
+                                System.out.println("there isn't any comment");
+                            }
+                            System.out.println();
+                            System.out.println();
 
-                        }
-                        else if (num3 == 2) {
+                        } else if (num3 == 2) {
                             int f = 0;
-                            System.out.println("   " + "\t" + "Username" + "\t" + "like/dislike");
+                            System.out.println();
+                            System.out.println();
+                            boolean by = true;
                             for (int i = 0; i < Post.allPosts.get(Post.allPosts.size() - num2).reactions.size(); i++) {
                                 if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).like == 1) {
-                                    System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "\t" + "like");
+                                    by = false;
                                 }
                                 if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).dislike == 1) {
-                                    System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "\t" + "dislike");
+                                    by = false;
                                 }
-
                             }
-                        }
+                            if (!by) {
+                                f = 0;
+                                System.out.println("   " + "\t" + "Username" + "\t" + "like/dislike");
+                                for (int i = 0; i < Post.allPosts.get(Post.allPosts.size() - num2).reactions.size(); i++) {
+                                    if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).like == 1) {
+                                        System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "      " + "like");
+                                    }
+                                    if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).dislike == 1) {
+                                        System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "      " + "dislike");
+                                    }
+                                }
+                            }
+                            else {
+                                System.out.println("there isn't any like/dislike");
+                            }
+                            System.out.println();
+                            System.out.println();
 
+                        }
                     }
 
                     repeatHomePage = true;
@@ -225,7 +259,6 @@ public class Firstpage {
                                             + "  bio :" +  PersonalUser.allPersonalUsers.get(i).bio);
                                     helpWithUsers.add(PersonalUser.allPersonalUsers.get(i).username);
                                 }
-
                             }
                         }
                         System.out.println("0. Back");
@@ -258,12 +291,12 @@ public class Firstpage {
 
                             }
                             else {
-                            boolean let = true;
-                            for (int j = 0; j < personalUser.followings.size() && let; j++) {
-                                if (personalUser.followings.get(j).equals(CommercialUser.allCommercialUsers.get(i).username)) {
-                                    let = false;
+                                boolean let = true;
+                                for (int j = 0; j < personalUser.followings.size() && let; j++) {
+                                    if (personalUser.followings.get(j).equals(CommercialUser.allCommercialUsers.get(i).username)) {
+                                        let = false;
+                                    }
                                 }
-                            }
                                 if (let) {
                                     System.out.println(String.valueOf(++t) + ". " + CommercialUser.allCommercialUsers.get(i).username
                                             + "  bio :" +  CommercialUser.allCommercialUsers.get(i).bio);
@@ -1284,7 +1317,7 @@ public class Firstpage {
                             {
 
                                 int num8=-1;
-                                System.out.println("Ban_Members...");
+                                System.out.println("Banned_Members...");
                                 while (num8!=0) {
                                     int tl=0;
                                     for (int i = 0; i < group.closed_users.size(); i++) {
@@ -1673,18 +1706,34 @@ public class Firstpage {
                     }
                 }
                 else if (option == 7) {
+                    System.out.println();
+                    System.out.println();
+                    System.out.println("MyProfile");
                     System.out.println("Username: " + personalUser.username);
                     System.out.println("Password: " + personalUser.password);
                     System.out.println("Bio: " + personalUser.bio);
-                    System.out.println("EmailAddress: " + personalUser.emailAddress);
+                    boolean bt=true;
                     System.out.println("My followings: ");
                     for (int i = 0; i < personalUser.followings.size(); i++) {
                         System.out.println(personalUser.followings.get(i));
+                        bt =false;
+                    }
+                    if (bt)
+                    {
+                        System.out.println("you don't have any followings");
                     }
                     System.out.println("My followers: ");
+                    bt =true;
                     for (int i = 0; i < personalUser.followers.size(); i++) {
                         System.out.println(String.valueOf(i + 1) + ". " + personalUser.followers.get(i));
+                        bt=false;
                     }
+                    if(bt)
+                    {
+                        System.out.println("you don't have any followers");
+                    }
+                    System.out.println();
+                    System.out.println();
 
                     repeatHomePage = true;
 
@@ -1732,18 +1781,29 @@ public class Firstpage {
 
                         }
                         else if(choice == 2){
+                            if(personalUser.bio!=null) {
+                                System.out.println("Your current bio is:");
+                                System.out.println(personalUser.bio.toString());
+                                System.out.println("Enter your new bio (0. back)");
 
-                            System.out.println("Your current bio is:");
-                            System.out.println(personalUser.bio.toString());
-                            System.out.println("Enter your new bio (0. back)");
+                            }
+                            else {
+                                System.out.println("Enter your bio (0. back)");
+
+                            }
                             String input = scanner.nextLine();
                             if(input.equals("0")){
                                 //repeatHomePage = true;
                                 continue;
                             }
-                            personalUser.bio.setLength(0);
-                            personalUser.bio.append(input);
-
+                            if (personalUser.bio!=null) {
+                                personalUser.bio.setLength(0);
+                                personalUser.bio.append(input);
+                            }
+                            else
+                            {
+                                personalUser.bio= new StringBuilder(input);
+                            }
                         }
                         else if(choice == 0){
                             editProfileContinues = false;
@@ -1807,7 +1867,7 @@ public class Firstpage {
 
                 if (option == 1) {
                     int t = 0;
-                    for (int i = Post.allPosts.size() - 1; i > Post.allPosts.size() - 20 && i >= 0; i--) {
+                    for (int i = Post.allPosts.size() - 1;i >= 0; i--) {
                         System.out.print(String.valueOf(++t) + ". " + Post.allPosts.get(i).text);
                         if(Post.allPosts.get(i).postTime != null){
                             System.out.println("            " + Post.allPosts.get(i).postTime.toLocalDate().toString()
@@ -1825,7 +1885,7 @@ public class Firstpage {
                     if (num == 1) {
                         t=0;
                         System.out.println("Please enter the post_number...");
-                        for (int i = Post.allPosts.size() - 1; i > Post.allPosts.size() - 20 && i >= 0; i--) {
+                        for (int i = Post.allPosts.size() - 1; i >= 0; i--) {
                             System.out.println(String.valueOf(++t) + ". " + Post.allPosts.get(i).text);
                         }
                         int num2 = Integer.parseInt(scanner.nextLine());
@@ -1906,27 +1966,68 @@ public class Firstpage {
                         System.out.println("2. Show likes and dislikes");
                         int num3 = Integer.parseInt(scanner.nextLine());
                         if (num3 == 1) {
+                            System.out.println();
+                            System.out.println();
                             int f = 0;
-                            System.out.println("   " + "\t" + "Username" + "\t" + "Comment");
+                            boolean by=true;
                             for (int i = 0; i < Post.allPosts.get(Post.allPosts.size() - num2).reactions.size(); i++) {
                                 if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).comment!=null) {
-                                    System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).comment);
+                                    by=false;
                                 }
                             }
+                            if(!by)
+                            {
+                                f = 0;
+                                System.out.println("   " + "\t" + "Username" + "\t" + "Comment");
+                                for (int i = 0; i < Post.allPosts.get(Post.allPosts.size() - num2).reactions.size(); i++) {
+                                    if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).comment!=null) {
+                                        System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "      " + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).comment);
+                                    }
+                                }
 
+                            }
+                            else
+                            {
+                                System.out.println("there isn't any comments");
+                            }
+                            System.out.println();
+                            System.out.println();
                         } else if (num3 == 2) {
+                            System.out.println();
+                            System.out.println();
                             int f = 0;
-                            System.out.println("   " + "\t" + "Username" + "\t" + "like/dislike");
+                            boolean by= true;
                             for (int i = 0; i < Post.allPosts.get(Post.allPosts.size() - num2).reactions.size(); i++) {
                                 if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).like == 1) {
-                                    System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "\t" + "like");
+                                    by=false;
                                 }
                                 if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).dislike == 1) {
-                                    System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "\t" + "dislike");
+                                    by=false;
                                 }
 
                             }
+                            if(!by)
+                            {
+                                f=0;
+                                System.out.println("   " + "\t" + "Username" + "\t" + "like/dislike");
+                                for (int i = 0; i < Post.allPosts.get(Post.allPosts.size() - num2).reactions.size(); i++) {
+                                    if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).like == 1) {
+                                        System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "      " + "like");
+                                    }
+                                    if (Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).dislike == 1) {
+                                        System.out.println(String.valueOf(++f) + ". " + "\t" + Post.allPosts.get(Post.allPosts.size() - num2).reactions.get(i).user.username + "      " + "dislike");
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("there isn't any like/dislike");
+                            }
+
                         }
+                        System.out.println();
+                        System.out.println();
 
                     }
 
@@ -1961,12 +2062,12 @@ public class Firstpage {
 
                             }
                             else {
-                            boolean let = true;
-                            for (int j = 0; j < commercialUser.followings.size() && let; j++) {
-                                if (commercialUser.followings.get(j).equals(PersonalUser.allPersonalUsers.get(i).username)) {
-                                    let = false;
+                                boolean let = true;
+                                for (int j = 0; j < commercialUser.followings.size() && let; j++) {
+                                    if (commercialUser.followings.get(j).equals(PersonalUser.allPersonalUsers.get(i).username)) {
+                                        let = false;
+                                    }
                                 }
-                            }
                                 if (let) {
                                     System.out.println(String.valueOf(++t) + ". " + PersonalUser.allPersonalUsers.get(i).username
                                             + "  bio :" +  PersonalUser.allPersonalUsers.get(i).bio);
@@ -2037,110 +2138,120 @@ public class Firstpage {
                     System.out.println("To see how many people have seen the post and like it...");
                     System.out.println("Please enter the post_number...");
                     int t=0;
-                    for (int i = Post.allPosts.size() - 1; i > Post.allPosts.size() - 20 && i >= 0; i--) {
-                        System.out.println(String.valueOf(++t) + ". " + Post.allPosts.get(i).text);
-                    }
-                    int num2 = Integer.parseInt(scanner.nextLine());
-                    System.out.println("1. Views: "+String.valueOf(Post.allPosts.get(Post.allPosts.size()-num2).allView.size()));
-                    int n=0;
-                    for (int i=0;i<Post.allPosts.get(Post.allPosts.size()-num2).reactions.size();i++)
-                    {
-                        if(Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).like==1)
-                        {
-                            n++;
+                    ArrayList<Integer> ints = new ArrayList<Integer>();
+                    for (int i = Post.allPosts.size() - 1; i >= 0; i--) {
+                        if (Post.allPosts.get(i).user.username.equals(commercialUser.username)) {
+                            System.out.println(String.valueOf(++t) + ". " + Post.allPosts.get(i).text);
+                            ints.add(i);
                         }
                     }
-                    System.out.println("2. Likes: "+String.valueOf(n));
-                    n=0;
-                    for (int i=0;i<Post.allPosts.get(Post.allPosts.size()-num2).reactions.size();i++)
-                    {
-                        if(Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).dislike==1)
-                        {
-                            n++;
-                        }
-                    }
-                    System.out.println("2. Dislikes: "+String.valueOf(n));
-
-                    System.out.println("Do you want to see the users?");
-                    System.out.println("1. Yes");
-                    System.out.println("2. No");
-                    int num9=Integer.parseInt(scanner.nextLine());
-                    if(num9==1)
-                    {
-                        int num8=1;
-                        while (num8!=0) {
-                            System.out.println("1. Views");
-                            System.out.println("2. Likes");
-                            System.out.println("3. Dislikes");
-                            System.out.println("0. Back");
-                            String str = scanner.nextLine();
-                            if (str.isEmpty()) {
-                                str = scanner.nextLine();
+                    System.out.println("0. Back");
+                    int realnum=Integer.parseInt(scanner.nextLine());
+                    if(realnum!=0) {
+                        int num2 = ints.get(realnum-1);
+                        System.out.println(Post.allPosts.get(num2).text);
+                        System.out.println("1. Views: " + String.valueOf(Post.allPosts.get(num2).allView.size()));
+                        int n = 0;
+                        for (int i = 0; i < Post.allPosts.get(num2).reactions.size(); i++) {
+                            if (Post.allPosts.get( num2).reactions.get(i).like == 1) {
+                                n++;
                             }
-                            num8 = Integer.parseInt(str);
-                            if(num8==1)
-                            {
-                                int trt=0;
-                                for (int i=0;i<Post.allPosts.get(Post.allPosts.size()-num2).allView.size();i++)
-                                {
-                                    System.out.println(String.valueOf(++trt)+". "+Post.allPosts.get(Post.allPosts.size()-num2).allView.get(i));
+                        }
+                        System.out.println("2. Likes: " + String.valueOf(n));
+                        n = 0;
+                        for (int i = 0; i < Post.allPosts.get(num2).reactions.size(); i++) {
+                            if (Post.allPosts.get(num2).reactions.get(i).dislike == 1) {
+                                n++;
+                            }
+                        }
+                        System.out.println("2. Dislikes: " + String.valueOf(n));
+
+                        System.out.println("Do you want to see the users?");
+                        System.out.println("1. Yes");
+                        System.out.println("2. No");
+                        int num9 = Integer.parseInt(scanner.nextLine());
+                        if (num9 == 1) {
+                            int num8 = 1;
+                            while (num8 != 0) {
+                                System.out.println("1. Views");
+                                System.out.println("2. Likes");
+                                System.out.println("3. Dislikes");
+                                System.out.println("0. Back");
+                                String str = scanner.nextLine();
+                                if (str.isEmpty()) {
+                                    str = scanner.nextLine();
                                 }
-                                System.out.println();
-                                System.out.println();
-                            }
-                            else if(num8==2)
-                            {
-                                int trt=0;
-
-                                for (int i=0;i<Post.allPosts.get(Post.allPosts.size()-num2).reactions.size();i++)
-                                {
-                                    if(Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).like==1)
-                                    {
-                                        System.out.println(String.valueOf(++trt)+". "+Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).user.username);
+                                num8 = Integer.parseInt(str);
+                                if (num8 == 1) {
+                                    int trt = 0;
+                                    for (int i = 0; i < Post.allPosts.get( num2).allView.size(); i++) {
+                                        System.out.println(String.valueOf(++trt) + ". " + Post.allPosts.get( num2).allView.get(i));
                                     }
-                                }
-                                System.out.println();
-                                System.out.println();
+                                    System.out.println();
+                                    System.out.println();
+                                } else if (num8 == 2) {
+                                    int trt = 0;
 
-                            }
-                            else if(num8==3)
-                            {
-                                int trt=0;
-
-                                for (int i=0;i<Post.allPosts.get(Post.allPosts.size()-num2).reactions.size();i++)
-                                {
-                                    if(Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).dislike==1)
-                                    {
-                                        System.out.println(String.valueOf(++trt)+". "+Post.allPosts.get(Post.allPosts.size()-num2).reactions.get(i).user.username);
+                                    for (int i = 0; i < Post.allPosts.get(num2).reactions.size(); i++) {
+                                        if (Post.allPosts.get(num2).reactions.get(i).like == 1) {
+                                            System.out.println(String.valueOf(++trt) + ". " + Post.allPosts.get( num2).reactions.get(i).user.username);
+                                        }
                                     }
-                                }
-                                System.out.println();
-                                System.out.println();
+                                    System.out.println();
+                                    System.out.println();
 
+                                } else if (num8 == 3) {
+                                    int trt = 0;
+
+                                    for (int i = 0; i < Post.allPosts.get( num2).reactions.size(); i++) {
+                                        if (Post.allPosts.get(num2).reactions.get(i).dislike == 1) {
+                                            System.out.println(String.valueOf(++trt) + ". " + Post.allPosts.get( num2).reactions.get(i).user.username);
+                                        }
+                                    }
+                                    System.out.println();
+                                    System.out.println();
+
+                                }
                             }
+                            repeatHomePage = true;
+                        } else {
+                            repeatHomePage = true;
                         }
-                        repeatHomePage=true;
                     }
-                    else
-                    {
-                        repeatHomePage=true;
-                    }
+                    repeatHomePage = true;
 
 
 
                 }
                 else if (option == 5) {
+                    System.out.println();
+                    System.out.println();
+                    System.out.println("MyProfile");
                     System.out.println("Username: " + commercialUser.username);
                     System.out.println("Password: " + commercialUser.password);
                     System.out.println("Bio: " + commercialUser.bio);
                     System.out.println("My followings: ");
-                    for (int i = 0; i < commercialUser.followings.size(); i++) {
+                    boolean bt=true;
+                    for (int i = 0; i < commercialUser.followings.size() ; i++) {
                         System.out.println(commercialUser.followings.get(i));
+                        bt=false;
+                    }
+                    if(bt)
+                    {
+                        System.out.println("you don't have any following");
                     }
                     System.out.println("My followers: ");
+                    bt=true;
                     for (int i = 0; i < commercialUser.followers.size(); i++) {
                         System.out.println(String.valueOf(i + 1) + ". " + commercialUser.followers.get(i));
+                        bt=false;
                     }
+                    if(bt)
+                    {
+                        System.out.println("you don't have any followers");
+                    }
+                    System.out.println();
+                    System.out.println();
                     repeatHomePage = true;
 
 
@@ -2188,18 +2299,28 @@ public class Firstpage {
 
                         }
                         else if(choice == 2){
-
-                            System.out.println("Your current bio is:");
-                            System.out.println(commercialUser.bio.toString());
-                            System.out.println("Enter your new bio (0. back)");
+                            if(commercialUser.bio!=null) {
+                                System.out.println("Your current bio is:");
+                                System.out.println(commercialUser.bio.toString());
+                                System.out.println("Enter your new bio (0. back)");
+                            }
+                            else
+                            {
+                                System.out.println("Enter your bio (0. back)");
+                            }
                             String input = scanner.nextLine();
                             if(input.equals("0")){
                                 //repeatHomePage = true;
                                 continue;
                             }
-                            commercialUser.bio.setLength(0);
-                            commercialUser.bio.append(input);
-
+                            if(commercialUser.bio!=null) {
+                                commercialUser.bio.setLength(0);
+                                commercialUser.bio.append(input);
+                            }
+                            else
+                            {
+                                commercialUser.bio=new StringBuilder(input);
+                            }
                         }
                         else if(choice == 0){
                             editProfileContinues = false;
